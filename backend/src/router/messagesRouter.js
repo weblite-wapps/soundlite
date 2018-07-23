@@ -1,8 +1,10 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var database = require('./../database/database.js')
-var multer = require('multer');
+var multer = require('multer')
 const path = require('path')
+var jsmediatags = require("jsmediatags")
+var btoa = require('btoa')
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => { cb(null, './public/audios')},
@@ -40,6 +42,24 @@ router.get('/getAudios', (req, res) => database
   .catch(err => res.status(500).send({err: err, mymess: "no "}))
 )
 
-router.get('/downloadSound/:fileName', (req, res) => {res.download(`${__dirname} + /../../public/audios/${req.params.fileName}`)})
+router.get('/downloadSoundsImg/:fileName', (req, res) => {
+  jsmediatags.read(`./public/audios/${req.params.fileName}`, {
+    onSuccess: function(tag) {
+      var base64String = "";
+      for (var i = 0; i < tag.tags.picture.data.length; i++) {
+          base64String += String.fromCharCode(tag.tags.picture.data[i]);
+      }
+      var dataUrl = "data:" + tag.tags.picture.format + ";base64," + btoa(base64String);
+      res.send({src: dataUrl})
+    },
+    onError: function(error) {
+      console.log(':(', error.type, error.info);
+    }
+  });
+})
+
+
+router.get('/downloadSound/:fileName', (req, res) => { res.download(`${__dirname} + /../../public/audios/${req.params.fileName}`)})
+
 
 exports.Router = router

@@ -8,4 +8,8 @@ export default{
     .query({ wisId })
     .then(res => res.body)
     .catch(err => console.log(err)),
+
+  getAudiosImg: (fileName) => request
+    .get(domain + 'downloadSoundsImg/' + fileName)
+    .then(res => res.body.src)
 }
