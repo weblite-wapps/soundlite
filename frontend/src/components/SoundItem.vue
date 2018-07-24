@@ -1,10 +1,11 @@
 <template>
   <div class="root"  >
-    <img :src="imgSrc" class="poster" alt="poster" @click="soundSelected">
+    <img v-if="!haveNotPoster()" :src="imgSrc" class="poster" alt="poster" @click="soundSelected">
+    <img v-if="haveNotPoster()" src="./../assets/images/noposter.jpg" class="poster" alt="poster" @click="soundSelected">
     <div class="loading">
       <div class="container">
-        <p class="title">{{title}}</p>
-        <p class="artist">{{artist}}</p>
+        <p class="title">{{_title}}</p>
+        <p class="artist">{{_artist}}</p>
       </div>
       <div class="lds-grid" :style="{visibility: selectAudio == index ?'visible' : 'hidden'}">
         <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
@@ -43,6 +44,11 @@
 
     computed: {
       audioSrc() { return `http://localhost:3000/downloadSound/${this.soundInfo.fileName}`},
+
+      _title() { return this.title == null ? "no title" : this.title},
+
+      _artist() {return this.artist == null ? "<unknown>" : this.artist},
+
     },
 
     created(){
@@ -54,7 +60,9 @@
       soundSelected(){
         this.playing = true
         this.$emit('click', {imgSrc: this.imgSrc, audioSrc: this.audioSrc})
-      }
+      },
+
+      haveNotPoster(){ return (this.imgSrc == null) ? true : false}
     }
 
   }
@@ -64,7 +72,7 @@
 <style scoped>
   .root {
     width: 100%;
-    height: 65px;
+    height: 60px;
     display: flex;
     flex-direction: row;
     background-color: rgb(103, 103, 103);
@@ -72,15 +80,14 @@
   }
 
   .poster {
-    width: 17%;
-    height: 60px;
-    margin-left: 1%;
-    margin-top: 2px;
+    width: 50px;
+    height: 50px;
+    margin-left: 2%;
+    margin-top: 5px;
     border-radius: 20px;
   }
 
   .title {
-    margin-top: 10px;
     margin-left: 10px;
     font-size: 15px;
     color: rgb(224, 224, 224);

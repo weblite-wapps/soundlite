@@ -46,10 +46,12 @@ router.get('/downloadSoundsImg/:fileName', (req, res) => {
   jsmediatags.read(`./public/audios/${req.params.fileName}`, {
     onSuccess: function(tag) {
       var base64String = "";
-      for (var i = 0; i < tag.tags.picture.data.length; i++) {
-          base64String += String.fromCharCode(tag.tags.picture.data[i]);
+      if( tag.tags.picture){
+        for (var i = 0; i < tag.tags.picture.data.length; i++) {
+            base64String += String.fromCharCode(tag.tags.picture.data[i]);
+        }
+        var dataUrl = "data:" + tag.tags.picture.format + ";base64," + btoa(base64String);
       }
-      var dataUrl = "data:" + tag.tags.picture.format + ";base64," + btoa(base64String);
       res.send({src: dataUrl, title: tag.tags.title, artist: tag.tags.artist, size: tag.size})
     },
     onError: function(error) {

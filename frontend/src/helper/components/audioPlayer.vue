@@ -46,8 +46,6 @@
 
 <style scoped>
   .root {
-    width: inherit;
-    height: 60px;
     background: rgb(85, 81, 108);
     padding-top: 20px;
   }
