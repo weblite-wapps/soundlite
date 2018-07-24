@@ -33,10 +33,11 @@
       }
     },
 
-    computed: {
-      _seek() {return (this.seek.toFixed(0)/60).toFixed(0) + ':' + this.seek.toFixed(0)%60},
 
-      _duration() {return (this.duration.toFixed(0)/60).toFixed(0) + ':' + this.duration.toFixed(0)%60}
+    computed: {
+      _seek() {return (this.seek/60).toFixed(0) + ':' + this.seek.toFixed(0)%60},
+
+      _duration() {return (this.duration/60).toFixed(0) + ':' + this.duration.toFixed(0)%60}
     }
   }
 

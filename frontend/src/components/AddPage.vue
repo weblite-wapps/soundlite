@@ -7,7 +7,7 @@
       method='post'
       encType="multipart/form-data"
     >
-      <input type="file" name="song" id="song" class="fade" @change="getFile"/>
+      <input type="file" accept="audio/*"  name="song" id="song" class="fade" @change="getFile"/>
       <label for="song"><img src="./../assets/images/select.png" class="select"></label>
     </form>
     <img src="./../assets/images/upload.png"  class="upload" value='Upload' @click.prevent="submitFile()"/>
@@ -50,10 +50,11 @@
         formData.append('addedBy', this.user)
         formData.append("wisId", this.wisId)
         formData.append("song", this.file);
+        console.log(this.file.name);
         request
         .post(domain + '/uploadAudio')
         .send(formData)
-        .then((res) => {console.log(res)})
+        .then(() => {console.log('received')})
         .catch((err) => {console.log(err)})
       },
 

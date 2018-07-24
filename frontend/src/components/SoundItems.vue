@@ -1,12 +1,14 @@
 <template>
   <div class="root">
-    <img v-if="noAudioSelected === false" :src="imgSrc" alt="poster" class="poster">
-    <audio-player v-if="noAudioSelected === false" :sources="audioSrc" ></audio-player>
+    <img v-if="selectedAudio !== -1" :src="imgSrc" alt="poster" class="poster">
+    <audio-player v-if="selectedAudio !== -1" :sources="audioSrc" ></audio-player>
     <div v-for="(sound, index) in sounds" :key="index">
       <SoundItem
         :soundInfo="sound"
         class="soundItem"
-        @click="selectAudio"
+        :index="index"
+        @click="selectAudio(index, $event)"
+        :selectAudio="selectedAudio"
         />
     </div>
   </div>
@@ -30,7 +32,7 @@
     data: () => ({
       imgSrc: '',
       audioSrc: [],
-      noAudioSelected: true
+      selectedAudio: -1
     }),
 
     components: {
@@ -39,8 +41,8 @@
     },
 
     methods: {
-      selectAudio(event) {
-        this.noAudioSelected = false;
+      selectAudio(index, event) {
+        this.selectedAudio = index;
         this.imgSrc = event.imgSrc
         this.audioSrc = [event.audioSrc]
       }

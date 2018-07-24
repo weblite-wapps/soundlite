@@ -1,9 +1,14 @@
 <template>
-  <div class="root"  @click="soundSelected">
-    <img :src="imgSrc" class="poster" alt="poster">
-    <div class="container">
-      <p class="title">{{title}}</p>
-      <p class="artist">{{artist}}</p>
+  <div class="root"  >
+    <img :src="imgSrc" class="poster" alt="poster" @click="soundSelected">
+    <div class="loading">
+      <div class="container">
+        <p class="title">{{title}}</p>
+        <p class="artist">{{artist}}</p>
+      </div>
+      <div class="lds-grid" :style="{visibility: selectAudio == index ?'visible' : 'hidden'}">
+        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+      </div>
     </div>
 
   </div>
@@ -19,6 +24,12 @@
     props: {
       soundInfo: {
         type: Object
+      },
+      index: {
+        type: Number
+      },
+      selectAudio: {
+        type: Number
       }
     },
 
@@ -26,7 +37,8 @@
       imgSrc: '',
       size: '',
       title: '',
-      artist: ''
+      artist: '',
+      playing: false
     }),
 
     computed: {
@@ -40,6 +52,7 @@
 
     methods: {
       soundSelected(){
+        this.playing = true
         this.$emit('click', {imgSrc: this.imgSrc, audioSrc: this.audioSrc})
       }
     }
@@ -59,9 +72,9 @@
   }
 
   .poster {
-    width: 60px;
+    width: 17%;
     height: 60px;
-    margin-left: 5px;
+    margin-left: 1%;
     margin-top: 2px;
     border-radius: 20px;
   }
@@ -84,6 +97,81 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+  }
+
+  .lds-grid {
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-right: 25px;
+    margin-top: 10px;
+  }
+  .lds-grid div {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #fff;
+    animation: lds-grid 1.2s linear infinite;
+  }
+  .lds-grid div:nth-child(1) {
+    top: 10px;
+    left: 10px;
+    animation-delay: 0s;
+  }
+  .lds-grid div:nth-child(2) {
+    top: 10px;
+    left: 20px;
+    animation-delay: -0.4s;
+  }
+  .lds-grid div:nth-child(3) {
+    top: 10px;
+    left: 30px;
+    animation-delay: -0.8s;
+  }
+  .lds-grid div:nth-child(4) {
+    top: 20px;
+    left: 10px;
+    animation-delay: -0.4s;
+  }
+  .lds-grid div:nth-child(5) {
+    top: 20px;
+    left: 20px;
+    animation-delay: -0.8s;
+  }
+  .lds-grid div:nth-child(6) {
+    top: 20px;
+    left: 30px;
+    animation-delay: -1.2s;
+  }
+  .lds-grid div:nth-child(7) {
+    top: 30px;
+    left: 10px;
+    animation-delay: -0.8s;
+  }
+  .lds-grid div:nth-child(8) {
+    top: 30px;
+    left: 20px;
+    animation-delay: -1.2s;
+  }
+  .lds-grid div:nth-child(9) {
+    top: 30px;
+    left: 30px;
+    animation-delay: -1.6s;
+  }
+  @keyframes lds-grid {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  .loading {
+    width: 82%;
+    display: flex;
+    justify-content: space-between;
   }
 
 </style>
