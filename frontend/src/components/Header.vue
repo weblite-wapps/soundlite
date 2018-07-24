@@ -1,8 +1,8 @@
 <template>
   <div class="root">
-    <button type="back" name="back" @click="togglePage('Main')">back</button>
+    <img src="./../assets/images/back.png" class="backButton" :style="{visibility: currentPage == 'Add' ? 'visible' :'hidden'}" @click="togglePage('Main')"/>
     <p>Sound Lite</p>
-    <button type="add" name="add" @click="togglePage('Add')">add</button>
+    <img src="./../assets/images/add.png" class="addButton" :style="{visibility: currentPage == 'Add' ?'hidden':'visible'}" @click="togglePage('Add')"/>
   </div>
 </template>
 
@@ -11,6 +11,12 @@
 
   export default {
     name: 'Header',
+
+    props: {
+      currentPage: {
+        type: String
+      }
+    },
 
     methods: {
       togglePage(event) {
@@ -26,11 +32,13 @@
   .root {
     width: inherit;
     height: 6%;
-    background: rgb(77, 140, 29);
+    background: rgb(71, 70, 70);
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 
   p {
@@ -39,5 +47,26 @@
     color: white;
     text-align: center;
   }
+
+  .backButton {
+    width: 15px;
+    height: 15px;
+  }
+
+  .backButton:hover {
+    width: 16px;
+    height: 16px;
+  }
+
+  .addButton {
+    width: 20px;
+    height: 20px;
+  }
+
+  .addButton:hover {
+    width: 20.5px;
+    height: 20.5px;
+  }
+
 
 </style>

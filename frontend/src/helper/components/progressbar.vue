@@ -16,7 +16,7 @@
 
     methods: {
       setProgressBar(event){
-        this.$emit('setProgressbar', (event.clientX-this.$refs.el.offsetLeft) / 245) // width of wapp = 350px , width of progressbar= 350px * 80% => 280
+        this.$emit('setProgressbar', (event.clientX-this.$refs.el.offsetLeft) / 280) // width of wapp = 350px , width of progressbar= 350px * 80% => 280
       },
 
     }
@@ -26,8 +26,8 @@
 <style scoped>
   .root {
     height: 3px;
-    background-color: rgb(78, 244, 92);
-    width: 70%;
+    background-color: rgb(54, 156, 131);
+    width: 80%;
     padding-left: 0;
   }
 
@@ -35,12 +35,5 @@
     height: 3px;
     background-color: rgb(232, 116, 30)
   }
-
-  /* .circle {
-    width: 8px;
-    height: 8px;
-    border-radius: 8px;
-    background-color: rgb(110, 2, 199)
-  } */
 
 </style>

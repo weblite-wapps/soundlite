@@ -7,9 +7,10 @@
       method='post'
       encType="multipart/form-data"
     >
-      <input type="file" name="song" @change="getFile"/>
-      <button value='Upload' @click.prevent="submitFile()">upload</button>
+      <input type="file" name="song" id="song" class="fade" @change="getFile"/>
+      <label for="song"><img src="./../assets/images/select.png" class="select"></label>
     </form>
+    <img src="./../assets/images/upload.png"  class="upload" value='Upload' @click.prevent="submitFile()"/>
 
   </div>
 </template>
@@ -65,7 +66,28 @@
 <style scoped>
   .root {
     height: 94%;
-    background-color: rgb(250, 231, 230)
+    background-color:  rgb(85, 81, 108);
+    box-sizing: border-box;
+  }
+
+  .fade {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+    }
+
+  .select {
+    width: 70px;
+    height:70px;
+    margin-left: 40%;
+    margin-top: 20%;
+  }
+
+  .upload {
+    margin-top: 10%;
+    width: 100px;
+    height:100px;
+    margin-left: 35%;
   }
 
 </style>

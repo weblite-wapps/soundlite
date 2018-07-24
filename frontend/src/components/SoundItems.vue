@@ -54,7 +54,7 @@
 <style scoped>
   .root {
     height: 94%;
-    background-color: rgb(227, 224, 224);
+    background-color: rgb(74, 74, 74);
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -66,9 +66,9 @@
   }
 
   .poster {
-    width: 348px;
+    width: inherit;
     height: 217px;
-    margin: 1px auto;
+    margin: 0px auto;
   }
 
 </style>

@@ -2,6 +2,7 @@
   <div class="root">
     <Header
       @toggle-page="togglePage"
+      :currentPage="currentPage"
       />
     <SoundItems
       v-show="currentPage === 'Main' "
@@ -59,6 +60,6 @@
   .root {
     width: 350px;
     height: 100%;
-    background-color: rgb(213, 37, 37);
+    background-color: rgb(74, 74, 74);
   }
 </style>

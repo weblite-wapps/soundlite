@@ -54,7 +54,7 @@
     height: 65px;
     display: flex;
     flex-direction: row;
-    background-color: rgb(183, 98, 251);
+    background-color: rgb(103, 103, 103);
     box-sizing: border-box;
   }
 
@@ -70,13 +70,14 @@
     margin-top: 10px;
     margin-left: 10px;
     font-size: 15px;
+    color: rgb(224, 224, 224);
   }
 
   .artist {
     margin-top: 10px;
     margin-left: 10px;
     font-size: 10px;
-    color: rgb(20, 208, 148, 0.8)
+    color: rgb(178, 178, 179);
   }
 
   .container {
