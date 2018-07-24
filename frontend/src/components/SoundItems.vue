@@ -1,7 +1,7 @@
 <template>
   <div class="root">
-    <img :src="imgSrc" alt="poster" class="poster">
-    <audio-player :sources="[audioSrc]" ></audio-player>
+    <img v-if="noAudioSelected === false" :src="imgSrc" alt="poster" class="poster">
+    <audio-player v-if="noAudioSelected === false" :sources="audioSrc" ></audio-player>
     <div v-for="(sound, index) in sounds" :key="index">
       <SoundItem
         :soundInfo="sound"
@@ -9,12 +9,6 @@
         @click="selectAudio"
         />
     </div>
-    <button
-      class="addButton"
-      @click="addButtonClicked"
-      type="button"
-      name="button"
-    >add</button>
   </div>
 </template>
 
@@ -35,7 +29,8 @@
 
     data: () => ({
       imgSrc: '',
-      audioSrc: ''
+      audioSrc: [],
+      noAudioSelected: true
     }),
 
     components: {
@@ -44,13 +39,10 @@
     },
 
     methods: {
-      addButtonClicked() {
-        this.$emit("addButtonClicked")
-      },
-
       selectAudio(event) {
+        this.noAudioSelected = false;
         this.imgSrc = event.imgSrc
-        this.audioSrc = event.audioSrc
+        this.audioSrc = [event.audioSrc]
       }
     }
 
@@ -61,21 +53,16 @@
 
 <style scoped>
   .root {
-    height: inherit;
+    height: 94%;
     background-color: rgb(227, 224, 224);
-    padding-top: 1px;
-    /*  me added*/
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
   }
 
   .soundItem {
-    margin: 1px  1px  0 1px ;
+    margin-top: .6px;
     border-radius: 1px;
-  }
-
-  .addButton {
-    margin: 0 auto;
   }
 
   .poster {

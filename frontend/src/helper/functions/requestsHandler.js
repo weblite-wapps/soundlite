@@ -11,5 +11,5 @@ export default{
 
   getAudiosImg: (fileName) => request
     .get(domain + 'downloadSoundsImg/' + fileName)
-    .then(res => res.body.src)
+    .then(res => res.body)
 }

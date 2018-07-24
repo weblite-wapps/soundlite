@@ -1,6 +1,8 @@
 <template>
   <div class="root">
+    <button type="back" name="back" @click="togglePage('Main')">back</button>
     <p>Sound Lite</p>
+    <button type="add" name="add" @click="togglePage('Add')">add</button>
   </div>
 </template>
 
@@ -9,6 +11,12 @@
 
   export default {
     name: 'Header',
+
+    methods: {
+      togglePage(event) {
+        this.$emit('toggle-page', event)
+      },
+    }
   }
 
 </script>
@@ -17,9 +25,12 @@
 <style scoped>
   .root {
     width: inherit;
-    height: 40px;
+    height: 6%;
     background: rgb(77, 140, 29);
-    padding-top: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   p {

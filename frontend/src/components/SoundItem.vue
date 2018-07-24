@@ -1,7 +1,11 @@
 <template>
   <div class="root"  @click="soundSelected">
     <img :src="imgSrc" class="poster" alt="poster">
-    <p>this is good!!!</p>
+    <div class="container">
+      <p class="title">{{title}}</p>
+      <p class="artist">{{artist}}</p>
+    </div>
+
   </div>
 </template>
 
@@ -19,7 +23,10 @@
     },
 
     data: () => ({
-      imgSrc: ''
+      imgSrc: '',
+      size: '',
+      title: '',
+      artist: ''
     }),
 
     computed: {
@@ -27,7 +34,8 @@
     },
 
     created(){
-      request.getAudiosImg(this.soundInfo.fileName).then(src => {this.imgSrc = src})
+      request.getAudiosImg(this.soundInfo.fileName).then(obj => {
+        this.imgSrc = obj.src, this.size = obj.size, this.title = obj.title, this.artist = obj.artist})
     },
 
     methods: {
@@ -47,6 +55,7 @@
     display: flex;
     flex-direction: row;
     background-color: rgb(183, 98, 251);
+    box-sizing: border-box;
   }
 
   .poster {
@@ -57,8 +66,23 @@
     border-radius: 20px;
   }
 
-  p{
-    margin-top: 20px;
+  .title {
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 15px;
+  }
+
+  .artist {
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 10px;
+    color: rgb(20, 208, 148, 0.8)
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
   }
 
 </style>

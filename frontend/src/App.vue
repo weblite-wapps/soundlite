@@ -1,14 +1,14 @@
 <template>
   <div class="root">
-    <Header/>
+    <Header
+      @toggle-page="togglePage"
+      />
     <SoundItems
-      v-if="currentPage === 'Main' "
+      v-show="currentPage === 'Main' "
       :sounds="sounds"
-      @addButtonClicked="togglePage('Add')"
       />
     <AddPage
       v-if="currentPage === 'Add' "
-      @goBackClicked="togglePage('Main')"
       :wisId="wisId"
       :user="username"
       />
@@ -42,16 +42,15 @@
     },
 
     methods: {
-      togglePage(page){
-        this.currentPage = page
-      }
+      togglePage(event){
+        if(event == "Main") { this.updateData()}
+        this.currentPage = event
+      },
+
+      updateData() { requests.getData(this.wisId).then(res => this.sounds = res)}
     },
 
-    created(){
-      requests.getData(this.wisId)
-        .then(res => this.sounds =  res)
-    }
-
+    mounted(){ this.updateData()}
   }
 </script>
 

@@ -11,8 +11,6 @@
       <button value='Upload' @click.prevent="submitFile()">upload</button>
     </form>
 
-    <button type="button" name="1button" @click="backClicked">back</button>
-
   </div>
 </template>
 
@@ -41,10 +39,7 @@
     },
 
     methods: {
-      getFile(event) {
-        this.file = event.target.files[0]
-        console.log(this.file)
-      },
+      getFile(event) {this.file = event.target.files[0]},
 
       submitFile() {
         const formData = new FormData();
@@ -54,15 +49,12 @@
         formData.append('addedBy', this.user)
         formData.append("wisId", this.wisId)
         formData.append("song", this.file);
-        console.log("click", formData)
         request
         .post(domain + '/uploadAudio')
         .send(formData)
         .then((res) => {console.log(res)})
         .catch((err) => {console.log(err)})
       },
-
-      backClicked() { this.$emit('goBackClicked') },
 
     }
   }
@@ -72,7 +64,7 @@
 
 <style scoped>
   .root {
-    height: inherit;
+    height: 94%;
     background-color: rgb(250, 231, 230)
   }
 
