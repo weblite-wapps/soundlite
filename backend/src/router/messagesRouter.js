@@ -52,7 +52,7 @@ router.get('/downloadSoundsImg/:fileName', (req, res) => {
         }
         var dataUrl = "data:" + tag.tags.picture.format + ";base64," + btoa(base64String);
       }
-      res.send({src: dataUrl, title: tag.tags.title, artist: tag.tags.artist, size: tag.size})
+      res.send({src: dataUrl, title: tag.tags.title, artist: tag.tags.artist})
     },
     onError: function(error) {
       console.log(':(', error.type, error.info);

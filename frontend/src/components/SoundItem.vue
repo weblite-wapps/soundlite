@@ -1,12 +1,17 @@
 <template>
   <div class="root" @click="soundSelected" >
+    <!-- poster -->
     <img v-if="!haveNotPoster()" :src="imgSrc" class="poster" alt="poster" >
     <img v-if="haveNotPoster()" src="./../assets/images/noposter.jpg" class="poster" alt="poster" >
-    <div class="loading">
-      <div class="container">
+
+    <!-- song info and animation-->
+    <div class="container">
+      <!-- title and artist -->
+      <div class="audioInfo">
         <p class="title" :style="{'fontSize': _title.length > 10 ? '13px': '15px'}">{{_title}}</p>
         <p class="artist">{{_artist}}</p>
       </div>
+      <!-- animation -->
       <div class="lds-grid" :style="{visibility: (selectAudio == index) && soundPlaying ?'visible' : 'hidden'}">
         <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
       </div>
@@ -39,7 +44,6 @@
 
     data: () => ({
       imgSrc: '',
-      size: '',
       title: '',
       artist: '',
       playing: false
@@ -48,7 +52,7 @@
     computed: {
       audioSrc() { return `http://localhost:3000/downloadSound/${this.soundInfo.fileName}`},
 
-      _title() { return this.title == null ? "no title" : this.title},
+      _title() { return this.title == null ? "<no title>" : this.title},
 
       _artist() {return this.artist == null ? "<unknown>" : this.artist},
 
@@ -56,7 +60,7 @@
 
     created(){
       request.getAudiosImg(this.soundInfo.fileName).then(obj => {
-        this.imgSrc = obj.src, this.size = obj.size, this.title = obj.title, this.artist = obj.artist})
+        this.imgSrc = obj.src, this.title = obj.title, this.artist = obj.artist})
     },
 
     watch:{
@@ -79,7 +83,6 @@
 
 <style scoped>
   .root {
-    width: 100%;
     height: 60px;
     display: flex;
     flex-direction: row;
@@ -107,13 +110,13 @@
     color: rgb(178, 178, 179);
   }
 
-  .container {
+  .audioInfo {
     display: flex;
     justify-content: center;
     flex-direction: column;
   }
 
-  .loading {
+  .container {
     width: 82%;
     display: flex;
     justify-content: space-between;

@@ -3,7 +3,7 @@
     <progressbar
       class="progressbar"
       :percent='progress'
-      @setProgressbar="setProgressbar"
+      @setProgressbar="setProgress"
       />
     <div class="buttons">
       <p>{{_seek}}</p>
@@ -30,10 +30,6 @@
     },
 
     methods: {
-      setProgressbar(event){
-        this.setProgress(event)
-      },
-
       _togglePlayback() {
         this.togglePlayback()
         this.$emit('audioIsPlaying', this.playing)
@@ -44,7 +40,7 @@
 
 
     computed: {
-      _seek() {return (this.seek/60).toFixed(0) + ':' + Number(this.seek%60).toFixed(0)},
+      _seek() {return this.seek>.1 ? (this.seek/60).toFixed(0) + ':' + Number(this.seek%60).toFixed(0): '0:0'},
 
       _duration() {return (this.duration/60).toFixed(0) + ':' + Number(this.duration%60).toFixed(0)}
     }
