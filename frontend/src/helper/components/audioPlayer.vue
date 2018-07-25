@@ -1,16 +1,24 @@
 <template>
   <div class="root">
+    <!-- progress bar -->
     <progressbar
       class="progressbar"
       :percent='progress'
       @setProgressbar="setProgress"
       />
+
+    <!-- buttons -->
     <div class="buttons">
+      <!-- played time -->
       <p>{{_seek}}</p>
+      <!-- previos button -->
       <img @click="setAnotherAudio(-1)" class="backLogo" src='./../../assets/images/next.png'>
+      <!-- play and pause button -->
       <img v-if="playing == false" @click="_togglePlayback" class="logo" src='./../../assets/images/play.png'>
       <img v-if="playing == true" @click="_togglePlayback" class="logo" src='./../../assets/images/pause.png'>
+      <!-- next button -->
       <img @click="setAnotherAudio(1)" class="logo" src='./../../assets/images/next.png'>
+      <!-- duration -->
       <p>{{_duration}}</p>
     </div>
 
@@ -76,14 +84,13 @@
   }
 
   .logo, .backLogo {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
   }
 
   .backLogo {
     transition: transform .3s ease;
     transform: rotate(180deg);
-
   }
 
 </style>

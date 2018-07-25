@@ -30,7 +30,6 @@
 
 <style scoped>
   .root {
-    width: inherit;
     height: 6%;
     background: rgb(71, 70, 70);
     box-sizing: border-box;
@@ -72,7 +71,6 @@
     padding: 2px;
     background-color: rgb(97, 95, 95);
     border-radius: 18px;
-
   }
 
 

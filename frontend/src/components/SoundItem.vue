@@ -52,7 +52,7 @@
     computed: {
       audioSrc() { return `http://localhost:3000/downloadSound/${this.soundInfo.fileName}`},
 
-      _title() { return this.title == null ? "<no title>" : this.title},
+      _title() { return this.title == null ? "no title" : this.title},
 
       _artist() {return this.artist == null ? "<unknown>" : this.artist},
 

@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    
+
     <!-- poster -->
     <template v-if="(selectedAudio  !== -1)">
       <img v-if="(!haveNotPoster()) && showPoster"
@@ -87,11 +87,9 @@
 
       setPlaying(event) { this.playing = !event},
 
-      setAudio(event){
-        if((this.selectedAudio + event< this.sounds.length)  && (-1 <this.selectedAudio + event)){
-          this.selectedAudio += event
-        }
-      }
+      setAudio(event){if(this.checkAudiosIndex(this.selectedAudio + event)) this.selectedAudio += event},
+
+      checkAudiosIndex(num){ return (num < this.sounds.length)&&(num > -1) ? true : false }
     }
 
   }
