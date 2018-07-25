@@ -1,33 +1,32 @@
 <template>
   <div class="root">
 
-    <!-- poster -->
+    <!-- poster and player -->
     <template v-if="(selectedAudio  !== -1)">
-      <img v-if="(!haveNotPoster()) && showPoster"
-      :src="imgSrc"
-      alt="poster"
-      class="poster">
       <img
-        v-if="(haveNotPoster()) && showPoster"
+        v-if="(hasPoster()) && !hiddenPosterClicked"
+        :src="imgSrc"
+        class="poster">
+      <img
+        v-if="(!hasPoster()) && !hiddenPosterClicked"
         src="./../assets/images/noposter.jpg"
-        alt="poster"
         class="poster">
 
       <!-- choose poster shown or not -->
       <img
         src="./../assets/images/back.png"
-        :class="{'up':(showPoster) , 'down': (!showPoster)}"
+        :class="{'down':(hiddenPosterClicked) , 'up': (!hiddenPosterClicked)}"
         @click="toggleShowPoster()"/>
-    </template>
 
-    <!-- audio player -->
-    <audio-player
-      v-if="selectedAudio !== -1"
-      :sources="audioSrc"
-      class="audioPlayer"
-      @audioIsPlaying="setPlaying"
-      @setAnotherAudio="setAudio"
-      :autoplay='true'/>
+      <!-- audio player -->
+      <audio-player
+        :sources="audioSrc"
+        class="audioPlayer"
+        @audioIsPlaying="setPlayingMode"
+        @setAnotherAudio="setSelectedAudio"
+        :autoplay='true'/>
+
+    </template>
 
     <!-- list of audios -->
     <div class="soundItems">
@@ -38,7 +37,7 @@
           :index="index"
           @click="selectAudio(index, $event)"
           :selectAudio="selectedAudio"
-          :soundPlaying="playing"
+          :soundPlaying="oneAudioIsPlaying"
           />
       </div>
     </div>
@@ -64,8 +63,8 @@
       imgSrc: '',
       audioSrc: [],
       selectedAudio: -1,
-      showPoster: true,
-      playing: false,
+      hiddenPosterClicked: false,
+      oneAudioIsPlaying: false,
     }),
 
     components: {
@@ -78,16 +77,16 @@
         this.selectedAudio = index;
         this.imgSrc = event.imgSrc
         this.audioSrc = [event.audioSrc]
-        this.setPlaying()
+        this.setPlayingMode(false)
       },
 
-      haveNotPoster(){ return (this.imgSrc == null) ? true : false},
+      hasPoster(){ return (this.imgSrc == "") ? false : true},
 
-      toggleShowPoster() { this.showPoster = !this.showPoster},
+      toggleShowPoster() { this.hiddenPosterClicked = !this.hiddenPosterClicked},
 
-      setPlaying(event) { this.playing = !event},
+      setPlayingMode(event) { this.oneAudioIsPlaying = !event},
 
-      setAudio(event){if(this.checkAudiosIndex(this.selectedAudio + event)) this.selectedAudio += event},
+      setSelectedAudio(event){if(this.checkAudiosIndex(this.selectedAudio + event)) this.selectedAudio += event},
 
       checkAudiosIndex(num){ return (num < this.sounds.length)&&(num > -1) ? true : false }
     }
@@ -115,9 +114,24 @@
     overflow-y: auto;
   }
 
+  .soundItems::-webkit-scrollbar-track{
+    	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    	background-color: #F5F5F5;
+  }
+
+  .soundItems::-webkit-scrollbar{
+  	width: 5px;
+  	background-color: #F5F5F5;
+  }
+
+  .soundItems::-webkit-scrollbar-thumb{
+  	background-color: #000000;
+  	border: 2px solid #555555;
+  }
+
   .poster {
-    width: inherit;
-    height: 350px;
+    width: 350px;
+    height: 300px;
     margin: 0px auto;
   }
 

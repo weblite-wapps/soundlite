@@ -60,7 +60,9 @@
 <style scoped>
   .root {
     background: rgb(85, 81, 108);
-    padding-top: 20px;
+    padding-top: 15px;
+    box-sizing: border-box;
+    padding-bottom: 10px;
   }
 
   .buttons {
@@ -76,6 +78,7 @@
 
   .progressbar {
     margin: 0 auto;
+    margin-bottom: 5px;
     padding: 0;
   }
 
@@ -86,10 +89,11 @@
   .logo, .backLogo {
     width: 22px;
     height: 22px;
+    transition: transform .3s ease;
+    transform: rotate(360deg);
   }
 
   .backLogo {
-    transition: transform .3s ease;
     transform: rotate(180deg);
   }
 

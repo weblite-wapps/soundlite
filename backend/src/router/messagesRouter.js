@@ -47,7 +47,7 @@ router.get('/downloadSoundsImg/:fileName', (req, res) => {
   jsmediatags.read(`./public/audios/${req.params.fileName}`, {
     onSuccess: function(tag) {
       var dataUrl = ""
-      if(tag.tags.picture.data){
+      if(tag.tags.picture){
         const base64String = R.reduce((a, b) => a + String.fromCharCode(b), "", tag.tags.picture.data)
         dataUrl = "data:" + tag.tags.picture.format + ";base64," + btoa(base64String);
       }

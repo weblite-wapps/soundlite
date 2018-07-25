@@ -1,8 +1,8 @@
 <template>
   <div class="root" @click="soundSelected" >
     <!-- poster -->
-    <img v-if="!haveNotPoster()" :src="imgSrc" class="poster" alt="poster" >
-    <img v-if="haveNotPoster()" src="./../assets/images/noposter.jpg" class="poster" alt="poster" >
+    <img v-if="hasPoster()" :src="imgSrc" class="poster" alt="poster" >
+    <img v-if="!hasPoster()" src="./../assets/images/noposter.jpg" class="poster" alt="poster" >
 
     <!-- song info and animation-->
     <div class="container">
@@ -13,7 +13,7 @@
       </div>
       <!-- animation -->
       <div class="lds-grid" :style="{visibility: (selectAudio == index) && soundPlaying ?'visible' : 'hidden'}">
-        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        <div v-for="i in 9">  </div>
       </div>
     </div>
 
@@ -37,7 +37,7 @@
       selectAudio: {
         type: Number
       },
-      soundPlaying: {
+      soundPlaying: { // for showing animation
         type: Boolean
       }
     },
@@ -74,7 +74,7 @@
         this.$emit('click', {imgSrc: this.imgSrc, audioSrc: this.audioSrc})
       },
 
-      haveNotPoster(){ return (this.imgSrc == null) ? true : false}
+      hasPoster(){ return (this.imgSrc == "") ? false : true}
     },
 
   }
