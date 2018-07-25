@@ -7,8 +7,8 @@
       />
     <div class="buttons">
       <p>{{_seek}}</p>
-      <img v-if="playing == false" @click="togglePlayback" class="logo" src='./../../assets/images/play.png'>
-      <img v-if="playing == true" @click="togglePlayback" class="logo" src='./../../assets/images/pause.png'>
+      <img v-if="playing == false" @click="_togglePlayback" class="logo" src='./../../assets/images/play.png'>
+      <img v-if="playing == true" @click="_togglePlayback" class="logo" src='./../../assets/images/pause.png'>
       <p>{{_duration}}</p>
     </div>
 
@@ -30,14 +30,19 @@
     methods: {
       setProgressbar(event){
         this.setProgress(event)
+      },
+
+      _togglePlayback() {
+        this.togglePlayback()
+        this.$emit('audioIsPlaying', this.playing)
       }
     },
 
 
     computed: {
-      _seek() {return (this.seek/60).toFixed(0) + ':' + this.seek.toFixed(0)%60},
+      _seek() {return (this.seek/60).toFixed(0) + ':' + Number(this.seek%60).toFixed(0)},
 
-      _duration() {return (this.duration/60).toFixed(0) + ':' + this.duration.toFixed(0)%60}
+      _duration() {return (this.duration/60).toFixed(0) + ':' + Number(this.duration%60).toFixed(0)}
     }
   }
 

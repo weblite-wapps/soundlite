@@ -8,7 +8,10 @@
       encType="multipart/form-data"
     >
       <input type="file" accept="audio/*"  name="song" id="song" class="fade" @change="getFile"/>
-      <label for="song"><img src="./../assets/images/select.png" class="select"></label>
+      <label for="song" class="select">
+        <p class="chooseFile">choose file</p>
+        <img src="./../assets/images/select.png" >
+      </label>
     </form>
     <img src="./../assets/images/upload.png"  class="upload" value='Upload' @click.prevent="submitFile()"/>
 
@@ -78,9 +81,9 @@
     }
 
   .select {
-    width: 70px;
-    height:70px;
-    margin-left: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: 20%;
   }
 
@@ -90,5 +93,13 @@
     height:100px;
     margin-left: 35%;
   }
+
+  .chooseFile {
+    color: rgb(255, 255, 255);
+    margin-bottom: -40px;
+    margin-left: -10px;
+    font-size: 13px;
+  }
+
 
 </style>

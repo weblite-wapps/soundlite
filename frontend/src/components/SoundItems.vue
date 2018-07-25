@@ -1,8 +1,26 @@
 <template>
   <div class="root">
-    <img v-if="(selectedAudio  !== -1) && (!haveNotPoster())" :src="imgSrc" alt="poster" class="poster">
-    <img v-if="(selectedAudio  !== -1) && (haveNotPoster())" src="./../assets/images/noposter.jpg" alt="poster" class="poster">
-    <audio-player v-if="selectedAudio !== -1" :sources="audioSrc" class="audioPlayer"  ></audio-player>
+    <img v-if="(selectedAudio  !== -1) && (!haveNotPoster()) && showPoster"
+    :src="imgSrc"
+    alt="poster"
+    class="poster">
+    <img
+      v-if="(selectedAudio  !== -1) && (haveNotPoster()) && showPoster"
+      src="./../assets/images/noposter.jpg"
+      alt="poster"
+      class="poster">
+    <img
+      v-if="(selectedAudio  != -1) && showPoster  "
+      src="./../assets/images/back.png"
+      class="up"
+      @click="toggleShowPoster()"/>
+    <img
+      v-if="(selectedAudio  != -1) && !showPoster"
+      src="./../assets/images/back.png"
+      class="down"
+      @click="toggleShowPoster()"/>
+    <audio-player v-if="selectedAudio !== -1" :sources="audioSrc" class="audioPlayer"  @audioIsPlaying="setPlaying" :autoplay='true'/>
+
     <div class="soundItems">
       <div v-for="(sound, index) in sounds" :key="index">
         <SoundItem
@@ -11,6 +29,7 @@
           :index="index"
           @click="selectAudio(index, $event)"
           :selectAudio="selectedAudio"
+          :soundPlaying="playing"
           />
       </div>
     </div>
@@ -35,7 +54,9 @@
     data: () => ({
       imgSrc: '',
       audioSrc: [],
-      selectedAudio: -1
+      selectedAudio: -1,
+      showPoster: true,
+      playing: false,
     }),
 
     components: {
@@ -48,10 +69,14 @@
         this.selectedAudio = index;
         this.imgSrc = event.imgSrc
         this.audioSrc = [event.audioSrc]
+        this.setPlaying()
       },
 
-      haveNotPoster(){ return (this.imgSrc == null) ? true : false}
+      haveNotPoster(){ return (this.imgSrc == null) ? true : false},
 
+      toggleShowPoster() { this.showPoster = !this.showPoster},
+
+      setPlaying(event) { this.playing = !event}
     }
 
   }
@@ -79,11 +104,28 @@
 
   .poster {
     width: inherit;
-    height: 217px;
+    height: 350px;
     margin: 0px auto;
   }
 
   .audioPlayer {
     height: 60px;
+  }
+
+  .up {
+    width: 30px;
+    height: 30px;
+    transition: transform .3s ease;
+    margin: 0 auto;
+    transform: rotate(90deg);
+    margin-top: -40px;
+  }
+
+  .down {
+    width: 30px;
+    height: 30px;
+    transition: transform .3s ease;
+    margin: 0 auto;
+    transform: rotate(270deg);
   }
 </style>

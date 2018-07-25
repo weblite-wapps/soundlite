@@ -38,7 +38,7 @@
     align-items: center;
     justify-content: space-between;
     padding-left: 5px;
-    padding-right: 5px;
+    padding-right: 10px;
   }
 
   p {
@@ -54,8 +54,11 @@
   }
 
   .backButton:hover {
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
+    padding: 2px;
+    background-color: rgb(97, 95, 95);
+    border-radius: 10px;
   }
 
   .addButton {
@@ -64,8 +67,12 @@
   }
 
   .addButton:hover {
-    width: 20.5px;
-    height: 20.5px;
+    width: 17px;
+    height: 17px;
+    padding: 2px;
+    background-color: rgb(97, 95, 95);
+    border-radius: 18px;
+
   }
 
 

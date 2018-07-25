@@ -1,13 +1,13 @@
 <template>
-  <div class="root"  >
-    <img v-if="!haveNotPoster()" :src="imgSrc" class="poster" alt="poster" @click="soundSelected">
-    <img v-if="haveNotPoster()" src="./../assets/images/noposter.jpg" class="poster" alt="poster" @click="soundSelected">
+  <div class="root" @click="soundSelected" >
+    <img v-if="!haveNotPoster()" :src="imgSrc" class="poster" alt="poster" >
+    <img v-if="haveNotPoster()" src="./../assets/images/noposter.jpg" class="poster" alt="poster" >
     <div class="loading">
       <div class="container">
         <p class="title">{{_title}}</p>
         <p class="artist">{{_artist}}</p>
       </div>
-      <div class="lds-grid" :style="{visibility: selectAudio == index ?'visible' : 'hidden'}">
+      <div class="lds-grid" :style="{visibility: (selectAudio == index) && soundPlaying ?'visible' : 'hidden'}">
         <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
       </div>
     </div>
@@ -31,6 +31,9 @@
       },
       selectAudio: {
         type: Number
+      },
+      soundPlaying: {
+        type: Boolean
       }
     },
 
@@ -63,7 +66,7 @@
       },
 
       haveNotPoster(){ return (this.imgSrc == null) ? true : false}
-    }
+    },
 
   }
 
