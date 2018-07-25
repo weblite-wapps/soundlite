@@ -7,8 +7,10 @@
       />
     <div class="buttons">
       <p>{{_seek}}</p>
+      <img @click="setAnotherAudio(-1)" class="backLogo" src='./../../assets/images/next.png'>
       <img v-if="playing == false" @click="_togglePlayback" class="logo" src='./../../assets/images/play.png'>
       <img v-if="playing == true" @click="_togglePlayback" class="logo" src='./../../assets/images/pause.png'>
+      <img @click="setAnotherAudio(1)" class="logo" src='./../../assets/images/next.png'>
       <p>{{_duration}}</p>
     </div>
 
@@ -35,7 +37,9 @@
       _togglePlayback() {
         this.togglePlayback()
         this.$emit('audioIsPlaying', this.playing)
-      }
+      },
+
+      setAnotherAudio(set) {this.$emit('setAnotherAudio', set)},
     },
 
 
@@ -75,9 +79,15 @@
     color: rgb(207, 207, 207)
   }
 
-  .logo {
+  .logo, .backLogo {
     width: 20px;
     height: 20px;
+  }
+
+  .backLogo {
+    transition: transform .3s ease;
+    transform: rotate(180deg);
+
   }
 
 </style>

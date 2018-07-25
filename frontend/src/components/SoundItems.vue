@@ -1,5 +1,6 @@
 <template>
   <div class="root">
+    
     <!-- poster -->
     <template v-if="(selectedAudio  !== -1)">
       <img v-if="(!haveNotPoster()) && showPoster"
@@ -11,14 +12,23 @@
         src="./../assets/images/noposter.jpg"
         alt="poster"
         class="poster">
+
       <!-- choose poster shown or not -->
       <img
         src="./../assets/images/back.png"
         :class="{'up':(showPoster) , 'down': (!showPoster)}"
         @click="toggleShowPoster()"/>
     </template>
+
     <!-- audio player -->
-    <audio-player v-if="selectedAudio !== -1" :sources="audioSrc" class="audioPlayer"  @audioIsPlaying="setPlaying" :autoplay='true'/>
+    <audio-player
+      v-if="selectedAudio !== -1"
+      :sources="audioSrc"
+      class="audioPlayer"
+      @audioIsPlaying="setPlaying"
+      @setAnotherAudio="setAudio"
+      :autoplay='true'/>
+
     <!-- list of audios -->
     <div class="soundItems">
       <div v-for="(sound, index) in sounds" :key="index">
@@ -76,6 +86,12 @@
       toggleShowPoster() { this.showPoster = !this.showPoster},
 
       setPlaying(event) { this.playing = !event},
+
+      setAudio(event){
+        if((this.selectedAudio + event< this.sounds.length)  && (-1 <this.selectedAudio + event)){
+          this.selectedAudio += event
+        }
+      }
     }
 
   }

@@ -59,6 +59,11 @@
         this.imgSrc = obj.src, this.size = obj.size, this.title = obj.title, this.artist = obj.artist})
     },
 
+    watch:{
+      selectAudio: function() { if(this.selectAudio == this.index){this.soundSelected()}
+      }
+    },
+
     methods: {
       soundSelected(){
         this.playing = true
