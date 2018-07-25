@@ -46,19 +46,20 @@
       getFile(event) {this.file = event.target.files[0]},
 
       submitFile() {
-        const formData = new FormData();
-        const domain = 'http://localhost:3000'
-
-        formData.append('tags', this.tags)
-        formData.append('addedBy', this.user)
-        formData.append("wisId", this.wisId)
-        formData.append("song", this.file);
-        console.log(this.file.name);
-        request
-        .post(domain + '/uploadAudio')
-        .send(formData)
-        .then(() => {console.log('received')})
-        .catch((err) => {console.log(err)})
+        if (this.file.name.split('.')[this.file.name.split('.').length -1] == "mp3"){
+          const formData = new FormData();
+          const domain = 'http://localhost:3000'
+          formData.append('tags', this.tags)
+          formData.append('addedBy', this.user)
+          formData.append("wisId", this.wisId)
+          formData.append("song", this.file);
+          request
+          .post(domain + '/uploadAudio')
+          .send(formData)
+          .then(() => {console.log('received')})
+          .catch((err) => {console.log(err)})
+        }
+        else{console.log('file is :', this.file.name.split('.')[this.file.name.split('.').length -1])}
       },
 
     }
