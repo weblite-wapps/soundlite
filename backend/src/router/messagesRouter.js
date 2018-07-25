@@ -1,18 +1,19 @@
-var express = require('express')
-var bodyParser = require('body-parser')
-var database = require('./../database/database.js')
-var multer = require('multer')
+const express = require('express')
+const bodyParser = require('body-parser')
+const database = require('./../database/database.js')
+const multer = require('multer')
 const path = require('path')
-var jsmediatags = require("jsmediatags")
-var btoa = require('btoa')
+const jsmediatags = require("jsmediatags")
+const btoa = require('btoa')
+const R = require('ramda')
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => { cb(null, './public/audios')},
   filename: (req, file, callback) => callback(null, Date.now().toString() + path.extname(file.originalname))
 })
 
-var upload = multer({storage}).single('song')
-var router = express.Router()
+const upload = multer({storage}).single('song')
+const router = express.Router()
 
 router.use('./static', express.static('./public/audios'))
 router.use(bodyParser.json())
@@ -45,12 +46,10 @@ router.get('/getAudios', (req, res) => database
 router.get('/downloadSoundsImg/:fileName', (req, res) => {
   jsmediatags.read(`./public/audios/${req.params.fileName}`, {
     onSuccess: function(tag) {
-      var base64String = "";
-      if( tag.tags.picture){
-        for (var i = 0; i < tag.tags.picture.data.length; i++) {
-            base64String += String.fromCharCode(tag.tags.picture.data[i]);
-        }
-        var dataUrl = "data:" + tag.tags.picture.format + ";base64," + btoa(base64String);
+      var dataUrl = ""
+      if(tag.tags.picture.data){
+        const base64String = R.reduce((a, b) => a + String.fromCharCode(b), "", tag.tags.picture.data)
+        dataUrl = "data:" + tag.tags.picture.format + ";base64," + btoa(base64String);
       }
       res.send({src: dataUrl, title: tag.tags.title, artist: tag.tags.artist})
     },
@@ -61,7 +60,7 @@ router.get('/downloadSoundsImg/:fileName', (req, res) => {
 })
 
 
-router.get('/downloadSound/:fileName', (req, res) => { res.download(`${__dirname} + /../../public/audios/${req.params.fileName}`)})
+router.get('/downloadSound/:fileName', (req, res) => { res.download(`${__dirname} /../../public/audios/${req.params.fileName}`)})
 
 
 exports.Router = router

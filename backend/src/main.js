@@ -1,8 +1,8 @@
-var express = require('express')
-var messagesRouter = require('./router/messagesRouter.js')
-var database = require('./database/database.js')
+const express = require('express')
+const messagesRouter = require('./router/messagesRouter.js')
+const database = require('./database/database.js')
 
-var app = express()
+const app = express()
 
 database.connect('soundlite_db')
 
