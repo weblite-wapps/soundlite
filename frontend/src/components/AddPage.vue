@@ -15,6 +15,7 @@
     </form>
     <img src="./../assets/images/upload.png"  class="upload" value='Upload' @click.prevent="submitFile()"/>
 
+
   </div>
 </template>
 
@@ -45,10 +46,13 @@
       getFile(event) {this.file = event.target.files[0]},
 
       submitFile() {
+        // checking wether file selected or not
         if(this.file.name){
+          // checking type of file
           if (this.file.name.split('.')[this.file.name.split('.').length -1] == "mp3"){
             const formData = new FormData();
             const domain = 'http://localhost:3000'
+
             formData.append('addedBy', this.user)
             formData.append("wisId", this.wisId)
             formData.append("song", this.file);
@@ -58,8 +62,10 @@
             .then(() => {console.log('received')})
             .catch((err) => {console.log(err)})
           }
+          // invalid type of data
           else{console.log('file is :', this.file.name.split('.')[this.file.name.split('.').length -1])}
         }
+        // no file selected
         else{ console.log('no file selected')}
       },
 

@@ -114,17 +114,17 @@
     overflow-y: auto;
   }
 
-  .soundItems::-webkit-scrollbar-track{
-    	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    	background-color: #F5F5F5;
-  }
-
-  .soundItems::-webkit-scrollbar{
-  	width: 5px;
+  .soundItems::-webkit-scrollbar-track {
+  	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
   	background-color: #F5F5F5;
   }
 
-  .soundItems::-webkit-scrollbar-thumb{
+  .soundItems::-webkit-scrollbar {
+    width: 5px;
+  	background-color: #F5F5F5;
+  }
+
+  .soundItems::-webkit-scrollbar-thumb {
   	background-color: #000000;
   	border: 2px solid #555555;
   }
