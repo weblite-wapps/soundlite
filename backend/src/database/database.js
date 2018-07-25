@@ -13,7 +13,7 @@ exports.connect = function (dbName) {
 }
 
 exports.addAudio = function(audioInfo, fileName) {
-   return  new models.Audio({wisId: audioInfo.wisId, addedBy: audioInfo.addedBy, fileName: fileName, tags: audioInfo.tags}).save()
+   return  new models.Audio({wisId: audioInfo.wisId, addedBy: audioInfo.addedBy, fileName: fileName}).save()
  }
 
 exports.getAllAudios = function(wisId) {

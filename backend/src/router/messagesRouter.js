@@ -29,7 +29,7 @@ router.post('/uploadAudio' , (req, res) => {
     if(err){res.send(err)}
     else{
       if(!req.file) { return res.status(400).send('no files were uloaded')}
-      database.addAudio(req.body, `${req.file.path.split('\\')[2]}`)
+      database.addAudio(req.body, `${req.file.filename}`)
         .then(() => res.send('submitted in database'))
         .catch(err => res.status(500).send(err))
     }

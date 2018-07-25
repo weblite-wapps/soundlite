@@ -37,7 +37,6 @@
 
     data: () => {
       return {
-        tags: 'love', // felan nemikham poresh konam
         file: ''
       }
     },
@@ -50,7 +49,6 @@
           if (this.file.name.split('.')[this.file.name.split('.').length -1] == "mp3"){
             const formData = new FormData();
             const domain = 'http://localhost:3000'
-            formData.append('tags', this.tags)
             formData.append('addedBy', this.user)
             formData.append("wisId", this.wisId)
             formData.append("song", this.file);

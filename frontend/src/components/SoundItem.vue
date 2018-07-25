@@ -4,7 +4,7 @@
     <img v-if="haveNotPoster()" src="./../assets/images/noposter.jpg" class="poster" alt="poster" >
     <div class="loading">
       <div class="container">
-        <p class="title">{{_title}}</p>
+        <p class="title" :style="{'fontSize': title.length > 10 ? '13px': '15px'}">{{_title}}</p>
         <p class="artist">{{_artist}}</p>
       </div>
       <div class="lds-grid" :style="{visibility: (selectAudio == index) && soundPlaying ?'visible' : 'hidden'}">
@@ -97,7 +97,6 @@
 
   .title {
     margin-left: 10px;
-    font-size: 15px;
     color: rgb(224, 224, 224);
   }
 
