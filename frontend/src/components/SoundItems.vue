@@ -1,26 +1,25 @@
 <template>
   <div class="root">
-    <img v-if="(selectedAudio  !== -1) && (!haveNotPoster()) && showPoster"
-    :src="imgSrc"
-    alt="poster"
-    class="poster">
-    <img
-      v-if="(selectedAudio  !== -1) && (haveNotPoster()) && showPoster"
-      src="./../assets/images/noposter.jpg"
+    <!-- poster -->
+    <template v-if="(selectedAudio  !== -1)">
+      <img v-if="(!haveNotPoster()) && showPoster"
+      :src="imgSrc"
       alt="poster"
       class="poster">
-    <img
-      v-if="(selectedAudio  != -1) && showPoster  "
-      src="./../assets/images/back.png"
-      class="up"
-      @click="toggleShowPoster()"/>
-    <img
-      v-if="(selectedAudio  != -1) && !showPoster"
-      src="./../assets/images/back.png"
-      class="down"
-      @click="toggleShowPoster()"/>
+      <img
+        v-if="(haveNotPoster()) && showPoster"
+        src="./../assets/images/noposter.jpg"
+        alt="poster"
+        class="poster">
+      <!-- choose poster shown or not -->
+      <img
+        src="./../assets/images/back.png"
+        :class="{'up':(showPoster) , 'down': (!showPoster)}"
+        @click="toggleShowPoster()"/>
+    </template>
+    <!-- audio player -->
     <audio-player v-if="selectedAudio !== -1" :sources="audioSrc" class="audioPlayer"  @audioIsPlaying="setPlaying" :autoplay='true'/>
-
+    <!-- list of audios -->
     <div class="soundItems">
       <div v-for="(sound, index) in sounds" :key="index">
         <SoundItem
@@ -76,7 +75,7 @@
 
       toggleShowPoster() { this.showPoster = !this.showPoster},
 
-      setPlaying(event) { this.playing = !event}
+      setPlaying(event) { this.playing = !event},
     }
 
   }
@@ -112,19 +111,19 @@
     height: 60px;
   }
 
-  .up {
+  .down,.up {
     width: 30px;
     height: 30px;
     transition: transform .3s ease;
+  }
+
+  .up {
     margin: 0 auto;
     transform: rotate(90deg);
-    margin-top: -40px;
+    margin-top: -30px;
   }
 
   .down {
-    width: 30px;
-    height: 30px;
-    transition: transform .3s ease;
     margin: 0 auto;
     transform: rotate(270deg);
   }

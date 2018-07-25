@@ -26,7 +26,7 @@
 
 <style scoped>
   .root {
-    height: 3px;
+    height: 4px;
     background-color: rgb(54, 156, 131);
     width: 80%;
     display: flex;
@@ -34,16 +34,17 @@
   }
 
   .progressed {
-    height: 3px;
+    height: 4px;
     background-color: rgb(232, 116, 30);
   }
 
   .circle {
     background-color: rgb(232, 116, 30);
-    width: 8px;
-    height: 8px;
-    border-radius: 4px;
+    width: 9px;
+    height: 9px;
+    border-radius: 8px;
     margin-top: -2px;
+    margin-left: -1px;
   }
 
 </style>
