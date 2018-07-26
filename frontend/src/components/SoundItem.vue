@@ -13,7 +13,7 @@
       </div>
       <!-- animation -->
       <div class="lds-grid" :style="{visibility: (selectAudio == index) && soundPlaying ?'visible' : 'hidden'}">
-        <div v-for="i in 9">  </div>
+        <div v-for="i in 9" :key="i">  </div>
       </div>
     </div>
 

@@ -97,62 +97,62 @@
 
 
 <style scoped>
-  .root {
-    height: 94%;
-    background-color: rgb(74, 74, 74);
-    display: flex;
-    flex-direction:column;
-    box-sizing: border-box;
-  }
+.root {
+  height: 94%;
+  background-color: rgb(74, 74, 74);
+  display: flex;
+  flex-direction:column;
+  box-sizing: border-box;
+}
 
-  .soundItem {
-    margin-top: .6px;
-    border-radius: 1px;
-  }
+.soundItem {
+  margin-top: .6px;
+  border-radius: 1px;
+}
 
-  .soundItems {
-    overflow-y: auto;
-  }
+.soundItems {
+  overflow-y: auto;
+}
 
-  .soundItems::-webkit-scrollbar-track {
-  	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-  	background-color: #F5F5F5;
-  }
+.soundItems::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
 
-  .soundItems::-webkit-scrollbar {
-    width: 5px;
-  	background-color: #F5F5F5;
-  }
+.soundItems::-webkit-scrollbar {
+  width: 5px;
+	background-color: #F5F5F5;
+}
 
-  .soundItems::-webkit-scrollbar-thumb {
-  	background-color: #000000;
-  	border: 2px solid #555555;
-  }
+.soundItems::-webkit-scrollbar-thumb {
+	background-color: #000000;
+	border: 2px solid #555555;
+}
 
-  .poster {
-    width: 350px;
-    height: 300px;
-    margin: 0px auto;
-  }
+.poster {
+  width: 350px;
+  height: 300px;
+  margin: 0px auto;
+}
 
-  .audioPlayer {
-    height: 60px;
-  }
+.audioPlayer {
+  height: 60px;
+}
 
-  .down,.up {
-    width: 30px;
-    height: 30px;
-    transition: transform .3s ease;
-  }
+.down,.up {
+  width: 30px;
+  height: 30px;
+  transition: transform .3s ease;
+}
 
-  .up {
-    margin: 0 auto;
-    transform: rotate(90deg);
-    margin-top: -30px;
-  }
+.up {
+  margin: 0 auto;
+  transform: rotate(90deg);
+  margin-top: -30px;
+}
 
-  .down {
-    margin: 0 auto;
-    transform: rotate(270deg);
-  }
+.down {
+  margin: 0 auto;
+  transform: rotate(270deg);
+}
 </style>

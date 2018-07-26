@@ -63,6 +63,7 @@
     padding-top: 15px;
     box-sizing: border-box;
     padding-bottom: 10px;
+    display: block;
   }
 
   .buttons {
