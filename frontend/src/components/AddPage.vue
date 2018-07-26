@@ -28,7 +28,7 @@
 
 <script>
 
-  import request from 'superagent'
+  import request from './../helper/functions/requestsHandler.js'
 
   export default {
     name: 'AddPage',
@@ -57,21 +57,16 @@
         if(this.file.name){
           // checking type of file
           if (this.file.name.split('.')[this.file.name.split('.').length -1] == "mp3"){
-            const formData = new FormData();
-            const domain = 'http://localhost:3000'
+            const formData = new FormData()
 
             formData.append('addedBy', this.user)
-            formData.append("wisId", this.wisId)
-            formData.append("song", this.file);
-            request
-            .post(domain + '/uploadAudio')
-            .send(formData)
-            .then(() => {this.alert = 'uploaded !!!'})
-            .catch((err) => {this.alert = err})
+            formData.append('wisId', this.wisId)
+            formData.append('song', this.file);
+            request.uploadAudio(formData).then(() => {this.alert = 'uploaded !!!'})
             this.file= ''
           }
           // invalid type of data
-          else{this.alert =`file is : ${this.file.name.split('.')[this.file.name.split('.').length -1]}`}
+          else{this.alert = 'invalid type of data'}
         }
         // no file selected
         else{ this.alert = 'no file selected'}

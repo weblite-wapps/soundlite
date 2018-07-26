@@ -11,5 +11,11 @@ export default{
 
   getAudiosImg: (fileName) => request
     .get(domain + 'downloadSoundsImg/' + fileName)
-    .then(res => res.body)
+    .then(res => res.body),
+
+  uploadAudio: (formData) => request
+    .post(domain + '/uploadAudio')
+    .send(formData)
+    .then((res) => res.body)
+    .catch((err) => console.log(err))
 }

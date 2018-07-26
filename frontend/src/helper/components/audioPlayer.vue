@@ -44,13 +44,15 @@
       },
 
       setAnotherAudio(set) {this.$emit('setAnotherAudio', set)},
+
+      makeTowDigit(num) {return num > 9 ? num : `0${num}`}
     },
 
 
     computed: {
-      _seek() {return this.seek>.1 ? (this.seek/60).toFixed(0) + ':' + Number(this.seek%60).toFixed(0): '0:0'},
+      _seek() {return this.seek>.1 ? (this.seek/60).toFixed(0) + ':' + this.makeTowDigit((this.seek%60).toFixed(0)): '0:00'},
 
-      _duration() {return (this.duration/60).toFixed(0) + ':' + Number(this.duration%60).toFixed(0)}
+      _duration() {return (this.duration/60).toFixed(0) + ':' + this.makeTowDigit((this.duration%60).toFixed(0))}
     }
   }
 
