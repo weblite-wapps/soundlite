@@ -77,7 +77,7 @@
         this.selectedAudio = index;
         this.imgSrc = event.imgSrc
         this.audioSrc = [event.audioSrc]
-        this.setPlayingMode(false)
+        this.setPlayingMode()
       },
 
       hasPoster(){ return (this.imgSrc == "") ? false : true},

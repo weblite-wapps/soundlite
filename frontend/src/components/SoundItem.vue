@@ -46,7 +46,7 @@
       imgSrc: '',
       title: '',
       artist: '',
-      playing: false
+      thisSoundIsPlaying: false
     }),
 
     computed: {
@@ -64,13 +64,17 @@
     },
 
     watch:{
-      selectAudio: function() { if(this.selectAudio == this.index){this.soundSelected()}
+      selectAudio: function() {
+        if(this.selectAudio == this.index){
+          this.$emit('click', {imgSrc: this.imgSrc, audioSrc: this.audioSrc})
+        }
+        else {this.thisSoundIsPlaying= false}
       }
     },
 
     methods: {
       soundSelected(){
-        this.playing = true
+        this.thisSoundIsPlaying = true
         this.$emit('click', {imgSrc: this.imgSrc, audioSrc: this.audioSrc})
       },
 
