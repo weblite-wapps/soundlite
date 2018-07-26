@@ -8,11 +8,11 @@ const btoa = require('btoa')
 const R = require('ramda')
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => { cb(null, './public/audios')},
+  destination: (req, file, cb) => cb(null, './public/audios'),
   filename: (req, file, callback) => callback(null, Date.now().toString() + path.extname(file.originalname))
 })
 
-const upload = multer({storage}).single('song')
+const upload = multer({ storage }).single('song')
 const router = express.Router()
 
 router.use('./static', express.static('./public/audios'))
@@ -25,23 +25,20 @@ router.use(function (req, res, next) {
   next()
 })
 
-router.post('/uploadAudio' , (req, res) => {
-  upload(req, res, (err) => {
-    if(err){res.send(err)}
-    else{
-      if(!req.file) { return res.status(400).send('no files were uloaded')}
-      database.addAudio(req.body, `${req.file.filename}`)
-        .then(() => res.send('submitted in database'))
-        .catch(err => res.status(500).send(err))
-    }
-  })
-})
+router.post('/uploadAudio' , (req, res) =>  upload(req, res, (err) => {
+  if(err) console.log(err)
+  else if(!req.file) return res.status(400).send('no files were uloaded')
+
+  database
+    .addAudio(req.body, `${req.file.filename}`)
+    .then(() => res.send('submitted in database'))
+    .catch(err => res.status(500).send(err))
+}))
 
 router.get('/getAudios', (req, res) => database
   .getAllAudios(req.query.wisId)
   .then(data => res.send(data))
-  .catch(err => res.status(500).send({err: err, mymess: "no "}))
-)
+  .catch(err => res.status(500).send({ err: err, mymess: "no " })))
 
 router.get('/downloadSoundsImg/:fileName', (req, res) => {
   jsmediatags.read(`./public/audios/${req.params.fileName}`, {

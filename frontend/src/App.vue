@@ -3,22 +3,23 @@
     <Header
       @toggle-page="togglePage"
       :currentPage="currentPage"
-      />
+    />
+
     <SoundItems
-      v-show="currentPage === 'Main' "
+      v-show="currentPage === 'Main'"
       :sounds="sounds"
-      />
+    />
+
     <AddPage
-      v-if="currentPage === 'Add' "
+      v-if="currentPage === 'Add'"
       :wisId="wisId"
       :user="username"
-      />
+    />
   </div>
 </template>
 
 
 <script>
-
   import Header from "./components/Header.vue"
   import SoundItems from "./components/SoundItems.vue"
   import requests from "./helper/functions/requestsHandler"
