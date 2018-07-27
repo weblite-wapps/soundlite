@@ -21,10 +21,11 @@
       <!-- audio player -->
       <audio-player
         :sources="audioSrc"
+        :html5="true"
         class="audioPlayer"
         @audioIsPlaying="setPlayingMode"
         @setAnotherAudio="setSelectedAudio"
-        :autoplay='true'/>
+        :autoplay='false'/>
 
     </template>
 
@@ -36,9 +37,10 @@
           class="soundItem"
           :index="index"
           @click="selectAudio(index, $event)"
-          :selectAudio="selectedAudio"
+          :selectedAudio="selectedAudio"
           :soundPlaying="oneAudioIsPlaying"
           />
+          <hr/>
       </div>
     </div>
   </div>
@@ -106,7 +108,7 @@
 }
 
 .soundItem {
-  margin-top: .6px;
+  margin-top: 0px;
   border-radius: 1px;
 }
 
@@ -154,5 +156,14 @@
 .down {
   margin: 0 auto;
   transform: rotate(270deg);
+}
+
+hr {
+  height: .6px;
+  display: block;
+  background-color: inherit;
+  padding: 0;
+  margin: 0;
+  border-width: 0;
 }
 </style>

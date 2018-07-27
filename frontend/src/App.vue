@@ -62,5 +62,7 @@
     width: 350px;
     height: 100%;
     background-color: rgb(74, 74, 74);
+    user-select: none;
+    
   }
 </style>

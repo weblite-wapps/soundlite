@@ -48,6 +48,12 @@
       makeTowDigit(num) {return num > 9 ? num : `0${num}`}
     },
 
+    watch: {
+      sources: function() {
+        if(this.playing){this.playing = false}
+        this.play()
+       },
+    },
 
     computed: {
       _seek() {return this.seek>.1 ? (this.seek/60).toFixed(0) + ':' + this.makeTowDigit((this.seek%60).toFixed(0)): '0:00'},

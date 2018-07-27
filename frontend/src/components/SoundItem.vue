@@ -12,7 +12,7 @@
         <p class="artist">{{_artist}}</p>
       </div>
       <!-- animation -->
-      <div class="lds-grid" :style="{visibility: (selectAudio == index) && soundPlaying ?'visible' : 'hidden'}">
+      <div class="lds-grid" :style="{visibility: (selectedAudio == index) && soundPlaying ?'visible' : 'hidden'}">
         <div v-for="i in 9" :key="i">  </div>
       </div>
     </div>
@@ -34,7 +34,7 @@
       index: {
         type: Number
       },
-      selectAudio: {
+      selectedAudio: {
         type: Number
       },
       soundPlaying: { // for showing animation
@@ -59,13 +59,13 @@
     },
 
     created(){
-      request.getAudiosImg(this.soundInfo.fileName).then(obj => {
-        this.imgSrc = obj.src, this.title = obj.title, this.artist = obj.artist})
+      request.getAudiosImg(this.soundInfo.fileName)
+        .then(obj => {this.imgSrc = obj.src, this.title = obj.title, this.artist = obj.artist})
     },
 
     watch:{
-      selectAudio: function() {
-        if(this.selectAudio == this.index){
+      selectedAudio: function() {
+        if(this.selectedAudio == this.index){
           this.$emit('click', {imgSrc: this.imgSrc, audioSrc: this.audioSrc})
         }
         else {this.thisSoundIsPlaying= false}

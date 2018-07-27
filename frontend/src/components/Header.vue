@@ -55,7 +55,7 @@
   .backButton:hover {
     width: 12px;
     height: 12px;
-    padding: 2px;
+    padding: 1.5px;
     background-color: rgb(97, 95, 95);
     border-radius: 10px;
   }
@@ -68,9 +68,9 @@
   .addButton:hover {
     width: 17px;
     height: 17px;
-    padding: 2px;
+    padding: 1.5px;
     background-color: rgb(97, 95, 95);
-    border-radius: 18px;
+    border-radius: 10px;
   }
 
 
