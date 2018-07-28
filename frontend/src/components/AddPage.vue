@@ -50,7 +50,10 @@
     },
 
     methods: {
-      getFile(event) {this.file = event.target.files[0]},
+      getFile(event) {
+        this.file = event.target.files[0]
+        this.alert = this.file.name
+      },
 
       submitFile() {
         // checking wether file selected or not
@@ -58,7 +61,6 @@
           // checking type of file
           if (this.file.name.split('.')[this.file.name.split('.').length -1] == "mp3"){
             const formData = new FormData()
-
             formData.append('addedBy', this.user)
             formData.append('wisId', this.wisId)
             formData.append('song', this.file);

@@ -109,7 +109,7 @@
 
 .soundItem {
   margin-top: 0px;
-  border-radius: 1px;
+  border-radius: 2px;
 }
 
 .soundItems {
@@ -159,9 +159,11 @@
 }
 
 hr {
-  height: .6px;
+  min-height: .6px;
+  max-height: .6px;
   display: block;
   background-color: inherit;
+  color: inherit;
   padding: 0;
   margin: 0;
   border-width: 0;

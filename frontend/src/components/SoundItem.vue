@@ -8,7 +8,7 @@
     <div class="container">
       <!-- title and artist -->
       <div class="audioInfo">
-        <p class="title" :style="{'fontSize': _title.length > 10 ? '13px': '15px'}">{{_title}}</p>
+        <p class="title">{{_title}}</p>
         <p class="artist">{{_artist}}</p>
       </div>
       <!-- animation -->
@@ -87,7 +87,7 @@
 
 <style scoped>
   .root {
-    height: 60px;
+    height: 65px;
     display: flex;
     flex-direction: row;
     background-color: rgb(103, 103, 103);
@@ -105,6 +105,7 @@
   .title {
     margin-left: 10px;
     color: rgb(224, 224, 224);
+    font-size: 13px;
   }
 
   .artist {
