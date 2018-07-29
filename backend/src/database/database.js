@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
 var models =require('./databaseModel')
 
 
-exports.connect = function (dbName) {
+exports.connect = dbName => {
   mongoose.connect('mongodb://localhost/' + dbName)
 
   var db = mongoose.connection
@@ -12,10 +12,11 @@ exports.connect = function (dbName) {
   })
 }
 
-exports.addAudio = function(audioInfo, fileName) {
-   return  new models.Audio({wisId: audioInfo.wisId, addedBy: audioInfo.addedBy, fileName: fileName}).save()
- }
+exports.addAudio = (audioInfo, fileName) => new models
+  .Audio({
+    wisId: audioInfo.wisId,
+    addedBy: audioInfo.addedBy,
+    fileName,
+  }).save()
 
-exports.getAllAudios = function(wisId) {
-  return models.Audio.find({wisId}).exec()
-}
+exports.getAllAudios = wisId => models.Audio.find({ wisId })

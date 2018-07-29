@@ -18,7 +18,7 @@
 
       <!-- audio player -->
       <audio-player
-        :sources="[audioSrc]"
+        :sources="audioSrc"
         :html5="true"
         :autoplay='true'
         :selectedSound="selectedSound"
@@ -57,7 +57,7 @@
 
     data: () => ({
       imgSrc: '',
-      audioSrc: '',
+      audioSrc: [],
       hiddenPosterClicked: false,
       selectedSound: -1
     }),
@@ -77,7 +77,7 @@
 
       bus.$on("getSoundsInfo", info => {
         this.imgSrc = info.imgSrc
-        this.audioSrc = info.audioSrc
+        this.audioSrc = [info.audioSrc]
       })
     },
 

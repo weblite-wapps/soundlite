@@ -1,23 +1,26 @@
+// module
 import request from 'superagent'
-
-
-const domain = 'http://localhost:3000/'
+// config
+import config from '../../config'
 
 
 export default {
   getData: wisId => request
-    .get(domain + 'getAudios/')
+    .get(config.server + '/getAudios')
+    .set('Access-Control-Allow-Origin', '*')
     .query({ wisId })
     .then(res => res.body)
     .catch(console.log),
 
   getAudiosImg: fileName => request
-    .get(domain + 'downloadSoundsImg/' + fileName)
+    .get(config.server + '/downloadSoundsImg/' + fileName)
+    .set('Access-Control-Allow-Origin', '*')
     .then(res => res.body)
     .catch(console.log),
 
   uploadAudio: formData => request
-    .post(domain + '/uploadAudio')
+    .post(config.server + '/uploadAudio')
+    .set('Access-Control-Allow-Origin', '*')
     .send(formData)
     .then(res => res.body)
     .catch(console.log)

@@ -37,7 +37,7 @@
     data(){
       return {
         username: 'hosein',
-        wisId: 1,
+        wisId: '1',
         sounds: [],
         currentPage: 'Main',
       }

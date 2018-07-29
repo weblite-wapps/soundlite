@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 var AudioSchema = new Schema({
-  wisId: Number,
+  wisId: String,
   addedBy: String,
   fileName: String,
 })

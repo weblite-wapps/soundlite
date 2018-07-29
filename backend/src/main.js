@@ -1,11 +1,23 @@
+// module
 const express = require('express')
-const messagesRouter = require('./router/messagesRouter.js')
+const fs = require('fs')
+const cors = require('cors')
+const path = require('path')
+const https = require('https')
+// router and db
+const messagesRouter = require('./router.js')
 const database = require('./database/database.js')
 
+
 const app = express()
-
 database.connect('soundlite_db')
+app.use(cors({ origin: '*' }))
+app.use(messagesRouter.Router)
 
-app.use('', messagesRouter.Router)
+const key = fs.readFileSync(path.resolve('./certs/express.key'), 'utf8')
+const cert = fs.readFileSync(path.resolve('./certs/express.crt'), 'utf8')
 
-app.listen(3000, () => console.log("server running ..."))
+
+https
+  .createServer({ key, cert }, app)
+  .listen(3093)

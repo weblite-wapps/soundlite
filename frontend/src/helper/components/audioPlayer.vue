@@ -5,7 +5,7 @@
       class="progressbar"
       :percent='progress'
       @setProgressbar="setProgress"
-      />
+    />
 
     <!-- buttons -->
     <div class="buttons">
@@ -14,8 +14,11 @@
       <!-- previos button -->
       <img @click="selectNewSound(-1)" class="backLogo" src='./../../assets/images/next.png'>
       <!-- play and pause button -->
-      <img v-if="playing == false" @click="togglePlayback" class="logo" src='./../../assets/images/play.png'>
-      <img v-if="playing == true" @click="togglePlayback" class="logo" src='./../../assets/images/pause.png'>
+      <img
+        @click="togglePlayback"
+        class="logo"
+        :src="playing ? require('./../../assets/images/pause.png') : require('./../../assets/images/play.png')"
+      />
       <!-- next button -->
       <img @click="selectNewSound(1)" class="logo" src='./../../assets/images/next.png'>
       <!-- duration -->
@@ -44,13 +47,13 @@
     methods: {
       makeTowDigit(num) {return num > 9 ? num : `0${num}`},
 
-      selectNewSound(num){bus.$emit('selectNewSound', this.selectedSound + num)}
+      selectNewSound(num) { bus.$emit('selectNewSound', this.selectedSound + num) }
     },
 
     computed: {
-      _seek() {return this.seek>.1 ? (this.seek / 60) - (this.seek / 60)%1 + ':' + this.makeTowDigit((this.seek%60).toFixed(0)): '0:00'},
+      _seek() { return this.seek > 0.1 ? (this.seek / 60) - (this.seek / 60) % 1 + ':' + this.makeTowDigit((this.seek % 60).toFixed(0)): '0:00' },
 
-      _duration() {return (this.duration / 60) -(this.duration/60)%1 + ':' + this.makeTowDigit((this.duration%60).toFixed(0))},
+      _duration() { return (this.duration / 60) - (this.duration / 60) % 1 + ':' + this.makeTowDigit((this.duration % 60).toFixed(0)) },
     },
 
     watch: {
@@ -101,5 +104,4 @@
   .backLogo {
     transform: rotate(180deg);
   }
-
 </style>

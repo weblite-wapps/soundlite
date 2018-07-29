@@ -47,7 +47,7 @@
 
     props: {
       user: { type: String },
-      wisId: { type: Number },
+      wisId: { type: String },
     },
 
     data: () => {

@@ -10,14 +10,13 @@
     name: 'Progressbar',
 
     props: {
-      percent: {
-        type: Number
-      }
+      percent: { type: Number },
     },
 
     methods: {
-      setProgressBar(event){
-        this.$emit('setProgressbar', (event.clientX-this.$refs.el.offsetLeft) / 280) // width of wapp = 350px , width of progressbar= 350px * 80% => 280
+      setProgressBar(event) {
+        // width of wapp = 350px , width of progressbar= 350px * 80% => 280
+        this.$emit('setProgressbar', (event.clientX-this.$refs.el.offsetLeft) / 280)
       },
     }
 
@@ -46,5 +45,4 @@
     margin-top: -2px;
     margin-left: -1px;
   }
-
 </style>

@@ -1,8 +1,11 @@
 <template>
   <div class="root" @click="setThisSound">
     <!-- poster -->
-    <img v-if="hasPoster()" :src="imgSrc" class="poster" alt="poster" >
-    <img v-if="!hasPoster()" src="./../assets/images/noposter.jpg" class="poster" alt="poster" >
+    <img
+      :src="hasPoster() ? imgSrc : require('./../assets/images/noposter.jpg')"
+      class="poster"
+      alt="poster"
+    >
 
     <!-- song info and animation-->
     <div class="container">
@@ -11,8 +14,9 @@
         <p class="title">{{_title}}</p>
         <p class="artist">{{_artist}}</p>
       </div>
+
       <!-- animation -->
-      <div class="lds-grid" :style="{visibility: animationVisability ?'visible': 'hidden'}">
+      <div class="lds-grid" :style="animationVisability">
         <div v-for="i in 9" :key="i" />
       </div>
     </div>
@@ -22,8 +26,10 @@
 
 
 <script>
-  import  request from './../helper/functions/requestsHandler'
+  import request from './../helper/functions/requestsHandler'
   import bus from './../helper/functions/bus'
+  // config
+  import config from '../config'
 
   export default {
     name: 'SoundItem',
@@ -46,33 +52,41 @@
     }),
 
     computed: {
-      audioSrc() { return `http://localhost:3000/downloadSound/${this.soundInfo.fileName}`},
+      audioSrc() { return `${config.server}/downloadSound/${this.soundInfo.fileName}`},
 
-      _title() { return this.title == null ? "no title" : this.title},
+      _title() { return this.title == null ? "no title" : this.title },
 
-      _artist() {return this.artist == null ? "<unknown>" : this.artist},
+      _artist() { return this.artist == null ? "<unknown>" : this.artist },
 
-      animationVisability() { return this.isPlaying && this.index == this.playingSoundsIndex ? true : false}
+      animationVisability() {
+        return { visibility: this.isPlaying && this.index == this.playingSoundsIndex ? 'visible' : 'hidden'}
+      }
     },
 
     mounted(){
       request.getAudiosImg(this.soundInfo.fileName)
-        .then(obj => {this.imgSrc = obj.src, this.title = obj.title, this.artist = obj.artist})
+        .then(({ src, title, artist }) => {
+          this.imgSrc = src
+          this.title = title
+          this.artist = artist
+        })
     },
 
     created(){
-      bus.$on("giveSoundsInfo", index => {
+      bus.$on("giveSoundsInfo", (index) => {
         this.playingSoundsIndex = index
-        if(index == this.index){bus.$emit("getSoundsInfo", {imgSrc: this.imgSrc, audioSrc: this.audioSrc})}
+        if(index == this.index) {
+          bus.$emit("getSoundsInfo", { imgSrc: this.imgSrc, audioSrc: this.audioSrc })
+        }
       })
 
-      bus.$on("setPlayingMode", playingMode => this.isPlaying = playingMode)
+      bus.$on("setPlayingMode", playingMode => { this.isPlaying = playingMode })
     },
 
     methods: {
-      hasPoster() { return (this.imgSrc == "") ? false : true},
+      hasPoster() { return (this.imgSrc == "") ? false : true },
 
-      setThisSound() { bus.$emit('selectNewSound', this.index)}
+      setThisSound() { bus.$emit('selectNewSound', this.index) }
     },
 
   }
@@ -120,5 +134,4 @@
     display: flex;
     justify-content: space-between;
   }
-
 </style>
