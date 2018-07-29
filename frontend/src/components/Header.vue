@@ -1,8 +1,20 @@
 <template>
   <div class="root">
-    <img src="./../assets/images/back.png" class="backButton" :style="{visibility: currentPage == 'Add' ? 'visible' :'hidden'}" @click="togglePage('Main')"/>
-    <p>Sound Lite</p>
-    <img src="./../assets/images/add.png" class="addButton" :style="{visibility: currentPage == 'Add' ?'hidden':'visible'}" @click="togglePage('Add')"/>
+    <img
+      src="./../assets/images/back.png"
+      class="backButton"
+      :style="visibility('Main')"
+      @click="togglePage('Main')"
+    />
+
+    <p class="header">Soundlite</p>
+
+    <img
+      src="./../assets/images/add.png"
+      class="addButton"
+      :style="visibility('Add')"
+      @click="togglePage('Add')"
+    />
   </div>
 </template>
 
@@ -22,7 +34,9 @@
       togglePage(event) {
         this.$emit('toggle-page', event)
       },
-    }
+
+      visibility(page) { return { visibility: this.currentPage == page ? 'hidden' : 'visible' } },
+    },
   }
 
 </script>
@@ -40,7 +54,7 @@
     padding-right: 10px;
   }
 
-  p {
+  .header {
     font-size: 20px;
     font-family: fantasy;
     color: white;
@@ -72,6 +86,4 @@
     background-color: rgb(97, 95, 95);
     border-radius: 10px;
   }
-
-
 </style>

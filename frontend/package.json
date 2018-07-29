@@ -10,8 +10,6 @@
   "dependencies": {
     "superagent": "^3.8.3",
     "vue": "^2.5.13",
-    "vue-aplayer": "^1.6.1",
-    "vue-audio": "0.0.11",
     "vue-howler": "^0.7.0"
   },
   "devDependencies": {

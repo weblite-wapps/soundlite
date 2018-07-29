@@ -1,51 +1,59 @@
 <template>
   <div class="root">
     <div class="buttons">
-      <form
-        ref='uploadForm'
-        id='uploadForm'
-        action='http://localhost:3000/uploadAudio'
-        method='post'
-        encType="multipart/form-data"
-      >
-        <input type="file" accept="audio/*"  name="song" id="song" class="fade" @change="getFile"/>
-        <!-- select file button -->
-        <label for="song" class="select">
-          <p class="chooseFileText">choose file</p>
-          <img src="./../assets/images/select.png" class="selectLogo">
-        </label>
-      </form>
+      <input
+        type="file"
+        accept="audio/*"
+        name="song"
+        id="song"
+        class="fade"
+        @change="getFile"
+      />
+
+      <!-- select file button -->
+      <label for="song" class="select">
+        <p class="chooseFileText">choose file</p>
+        <img src="./../assets/images/select.png" class="selectLogo">
+      </label>
+
       <!-- upload button -->
-      <img src="./../assets/images/upload.png"  class="uploadLogo" value='Upload' @click.prevent="submitFile()"/>
+      <img
+        src="./../assets/images/upload.png"
+        class="uploadLogo" value='Upload'
+        @click.prevent="submitFile()"
+      />
     </div>
 
     <!-- alert box -->
-    <div class="alert" :style="{visibility: alert == '' ? 'hidden' : 'visible'}"> {{alert}}</div>
-
+    <div
+      class="alert"
+      :style="{visibility: alert == '' ? 'hidden' : 'visible'}"
+    >
+      {{alert}}
+    </div>
   </div>
 </template>
 
 
 <script>
-
+  // helper
   import request from './../helper/functions/requestsHandler'
+  // R
+  const { R } = window
+
 
   export default {
     name: 'AddPage',
 
     props: {
-      user: {
-        type: String
-      },
-      wisId: {
-        type: Number
-      }
+      user: { type: String },
+      wisId: { type: Number },
     },
 
     data: () => {
       return {
         file: '',
-        alert: ''
+        alert: '',
       }
     },
 
@@ -55,30 +63,31 @@
         this.alert = this.file.name
       },
 
+      validateFile() {
+        const filenameArray = this.file.name.split('.')
+        return R.last(filenameArray) === "mp3"
+      },
+
       submitFile() {
-        // checking wether file selected or not
-        if(this.file.name){
-          // checking type of file
-          if (this.file.name.split('.')[this.file.name.split('.').length -1] == "mp3"){
+        if(this.file) {
+          if (this.validateFile()) {
             const formData = new FormData()
             formData.append('addedBy', this.user)
             formData.append('wisId', this.wisId)
             formData.append('song', this.file);
-            request.uploadAudio(formData).then(() => {this.alert = 'uploaded !!!'})
+            request.uploadAudio(formData)
+              .then(() => { this.alert = 'uploaded !!!' })
             this.file= ''
           }
-          // invalid type of data
-          else{this.alert = 'invalid type of data'}
+          else this.alert = 'invalid type of data'
         }
-        // no file selected
-        else{ this.alert = 'no file selected'}
+        else this.alert = 'no file selected'
 
-        setTimeout(() => this.alert = '', 3000)
+        setTimeout(() => { this.alert = '' }, 3000)
       },
 
     }
   }
-
 </script>
 
 
@@ -104,7 +113,7 @@
 
   .select {
     display: flex;
-    width: 50%;
+    width: 20%;
     flex-direction: column;
     align-items: center;
   }
@@ -154,6 +163,4 @@
     justify-content: center;
     align-items: center;
   }
-
-
 </style>

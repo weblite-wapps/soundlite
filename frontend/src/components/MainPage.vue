@@ -2,34 +2,28 @@
   <div class="root">
 
     <!-- poster and player -->
-    <template v-if="(selectedSound  !== -1)">
+    <template v-if="selectedSound !== -1">
       <img
-        v-if="(hasPoster()) && !hiddenPosterClicked"
-        :src="imgSrc"
+        v-if="!hiddenPosterClicked"
+        :src="hasPoster() ? imgSrc : require('./../assets/images/noposter.jpg')"
         class="poster"
-      >
-      <img
-        v-if="(!hasPoster()) && !hiddenPosterClicked"
-        src="./../assets/images/noposter.jpg"
-        class="poster"
-      >
+      />
 
       <!-- choose poster shown or not -->
       <img
         src="./../assets/images/back.png"
-        :class="{'down':(hiddenPosterClicked) , 'up': (!hiddenPosterClicked)}"
-        @click="toggleShowPoster()"
-      >
+        :class="hiddenPosterClicked ? 'down' : 'up'"
+        @click="toggleShowPoster"
+      />
 
       <!-- audio player -->
       <audio-player
-        :sources="audioSrc"
+        :sources="[audioSrc]"
         :html5="true"
         :autoplay='true'
         :selectedSound="selectedSound"
         class="audioPlayer"
       />
-
     </template>
 
     <!-- list of audios -->
@@ -48,13 +42,12 @@
 
 
 <script>
-
   import SoundItem from "./SoundItem"
   import AudioPlayer from "./../helper/components/audioPlayer"
   import bus from "./../helper/functions/bus"
 
   export default {
-    name: 'SoundItems',
+    name: 'minPage',
 
     props: {
       sounds:{
@@ -64,7 +57,7 @@
 
     data: () => ({
       imgSrc: '',
-      audioSrc: [],
+      audioSrc: '',
       hiddenPosterClicked: false,
       selectedSound: -1
     }),
@@ -84,21 +77,18 @@
 
       bus.$on("getSoundsInfo", info => {
         this.imgSrc = info.imgSrc
-        this.audioSrc = [info.audioSrc]
+        this.audioSrc = info.audioSrc
       })
-
     },
 
     methods: {
-      hasPoster(){ return (this.imgSrc == "") ? false : true},
+      hasPoster() { return this.imgSrc },
 
-      toggleShowPoster() { this.hiddenPosterClicked = !this.hiddenPosterClicked},
+      toggleShowPoster() { this.hiddenPosterClicked = !this.hiddenPosterClicked },
 
-      ifIsValidIndex(num, func) { if(num < this.sounds.length && num > -1) func()}
+      ifIsValidIndex(num, func) { if (num < this.sounds.length && num > -1) func() },
     },
-
   }
-
 </script>
 
 
@@ -163,8 +153,8 @@
 }
 
 hr {
-  min-height: .6px;
-  max-height: .6px;
+  min-height: 1px;
+  max-height: 1px;
   display: block;
   background-color: inherit;
   color: inherit;

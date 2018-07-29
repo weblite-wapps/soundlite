@@ -26,7 +26,6 @@
 </template>
 
 <script>
-
   import VueHowler from 'vue-howler'
   import Progressbar from './progressbar'
   import bus from './../functions/bus'
@@ -35,9 +34,7 @@
     mixins: [VueHowler],
 
     props: {
-      selectedSound: {
-        type: Number
-      }
+      selectedSound: { type: Number },
     },
 
     components: {
@@ -51,13 +48,13 @@
     },
 
     computed: {
-      _seek() {return this.seek>.1 ? (this.seek/60) - (this.seek/60)%1 + ':' + this.makeTowDigit((this.seek%60).toFixed(0)): '0:00'},
+      _seek() {return this.seek>.1 ? (this.seek / 60) - (this.seek / 60)%1 + ':' + this.makeTowDigit((this.seek%60).toFixed(0)): '0:00'},
 
-      _duration() {return (this.duration/60) -(this.duration/60)%1 + ':' + this.makeTowDigit((this.duration%60).toFixed(0))}
+      _duration() {return (this.duration / 60) -(this.duration/60)%1 + ':' + this.makeTowDigit((this.duration%60).toFixed(0))},
     },
 
     watch: {
-      playing(){bus.$emit("setPlayingMode", this.playing)}
+      playing() { bus.$emit("setPlayingMode", this.playing) },
     }
   }
 

@@ -5,7 +5,7 @@
       :currentPage="currentPage"
     />
 
-    <SoundItems
+    <MainPage
       v-show="currentPage === 'Main'"
       :sounds="sounds"
     />
@@ -21,7 +21,7 @@
 
 <script>
   import Header from "./components/Header"
-  import SoundItems from "./components/SoundItems"
+  import MainPage from "./components/MainPage"
   import requests from "./helper/functions/requestsHandler"
   import AddPage from "./components/AddPage"
 
@@ -30,14 +30,14 @@
 
     components: {
       Header,
-      SoundItems,
+      MainPage,
       AddPage,
     },
 
     data(){
       return {
-        username: 'hosein', // get from weblite api
-        wisId: 1, // get from weblite api
+        username: 'hosein',
+        wisId: 1,
         sounds: [],
         currentPage: 'Main',
       }
@@ -45,11 +45,11 @@
 
     methods: {
       togglePage(event){
-        if(event == "Main") { this.updateData()}
+        if (event == "Main") this.updateData()
         this.currentPage = event
       },
 
-      updateData() { requests.getData(this.wisId).then(res => this.sounds = res)}
+      updateData() { requests.getData(this.wisId).then(res => this.sounds = res) }
     },
 
     mounted(){ this.updateData()}
@@ -63,6 +63,5 @@
     height: 100%;
     background-color: rgb(74, 74, 74);
     user-select: none;
-
   }
 </style>
