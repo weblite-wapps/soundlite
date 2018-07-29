@@ -57,9 +57,10 @@
       updateData() { requests.getData(this.wisId).then(res => this.sounds = res) }
     },
 
-    created() { W && webliteHandler(this) },
-
-    mounted(){ this.updateData()},
+    created() {
+      W && webliteHandler(this)
+      !W && this.updateData()
+    },
   }
 </script>
 

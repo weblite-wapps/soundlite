@@ -9,5 +9,6 @@ export default (vueRoot) => {
     vueRoot.wisId = W.wisId
 
     W.start()
+    vueRoot.updateData()
   })
 }
