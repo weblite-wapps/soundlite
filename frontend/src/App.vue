@@ -20,10 +20,15 @@
 
 
 <script>
+  // componenets
   import Header from "./components/Header"
   import MainPage from "./components/MainPage"
-  import requests from "./helper/functions/requestsHandler"
   import AddPage from "./components/AddPage"
+  // helper
+  import webliteHandler from './helper/functions/weblite.api'
+  import requests from "./helper/functions/requestsHandler"
+  // W
+  const { W } = window
 
   export default {
     name: 'App',
@@ -37,7 +42,7 @@
     data(){
       return {
         username: 'hosein',
-        wisId: '1',
+        wisId: '',
         sounds: [],
         currentPage: 'Main',
       }
@@ -52,7 +57,9 @@
       updateData() { requests.getData(this.wisId).then(res => this.sounds = res) }
     },
 
-    mounted(){ this.updateData()}
+    created() { W && webliteHandler(this) },
+
+    mounted(){ this.updateData()},
   }
 </script>
 
