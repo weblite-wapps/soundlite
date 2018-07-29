@@ -28,7 +28,7 @@
 
 <script>
 
-  import request from './../helper/functions/requestsHandler.js'
+  import request from './../helper/functions/requestsHandler'
 
   export default {
     name: 'AddPage',

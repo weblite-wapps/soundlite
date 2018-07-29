@@ -12,12 +12,12 @@
       <!-- played time -->
       <p>{{_seek}}</p>
       <!-- previos button -->
-      <img @click="setAnotherAudio(-1)" class="backLogo" src='./../../assets/images/next.png'>
+      <img @click="selectNewSound(-1)" class="backLogo" src='./../../assets/images/next.png'>
       <!-- play and pause button -->
-      <img v-if="playing == false" @click="_togglePlayback" class="logo" src='./../../assets/images/play.png'>
-      <img v-if="playing == true" @click="_togglePlayback" class="logo" src='./../../assets/images/pause.png'>
+      <img v-if="playing == false" @click="togglePlayback" class="logo" src='./../../assets/images/play.png'>
+      <img v-if="playing == true" @click="togglePlayback" class="logo" src='./../../assets/images/pause.png'>
       <!-- next button -->
-      <img @click="setAnotherAudio(1)" class="logo" src='./../../assets/images/next.png'>
+      <img @click="selectNewSound(1)" class="logo" src='./../../assets/images/next.png'>
       <!-- duration -->
       <p>{{_duration}}</p>
     </div>
@@ -29,36 +29,35 @@
 
   import VueHowler from 'vue-howler'
   import Progressbar from './progressbar'
+  import bus from './../functions/bus'
 
   export default {
     mixins: [VueHowler],
+
+    props: {
+      selectedSound: {
+        type: Number
+      }
+    },
 
     components: {
       Progressbar,
     },
 
     methods: {
-      _togglePlayback() {
-        this.togglePlayback()
-        this.$emit('audioIsPlaying', this.playing)
-      },
+      makeTowDigit(num) {return num > 9 ? num : `0${num}`},
 
-      setAnotherAudio(set) {this.$emit('setAnotherAudio', set)},
-
-      makeTowDigit(num) {return num > 9 ? num : `0${num}`}
-    },
-
-    watch: {
-      sources: function() {
-        if(this.playing){this.playing = false}
-        this.play()
-       },
+      selectNewSound(num){bus.$emit('selectNewSound', this.selectedSound + num)}
     },
 
     computed: {
-      _seek() {return this.seek>.1 ? (this.seek/60).toFixed(0) + ':' + this.makeTowDigit((this.seek%60).toFixed(0)): '0:00'},
+      _seek() {return this.seek>.1 ? (this.seek/60) - (this.seek/60)%1 + ':' + this.makeTowDigit((this.seek%60).toFixed(0)): '0:00'},
 
-      _duration() {return (this.duration/60).toFixed(0) + ':' + this.makeTowDigit((this.duration%60).toFixed(0))}
+      _duration() {return (this.duration/60) -(this.duration/60)%1 + ':' + this.makeTowDigit((this.duration%60).toFixed(0))}
+    },
+
+    watch: {
+      playing(){bus.$emit("setPlayingMode", this.playing)}
     }
   }
 

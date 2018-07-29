@@ -1,5 +1,5 @@
 <template>
-  <div class="root" @click="soundSelected" >
+  <div class="root" @click="setThisSound">
     <!-- poster -->
     <img v-if="hasPoster()" :src="imgSrc" class="poster" alt="poster" >
     <img v-if="!hasPoster()" src="./../assets/images/noposter.jpg" class="poster" alt="poster" >
@@ -12,8 +12,8 @@
         <p class="artist">{{_artist}}</p>
       </div>
       <!-- animation -->
-      <div class="lds-grid" :style="{visibility: (selectedAudio == index) && soundPlaying ?'visible' : 'hidden'}">
-        <div v-for="i in 9" :key="i">  </div>
+      <div class="lds-grid" :style="{visibility: animationVisability ?'visible': 'hidden'}">
+        <div v-for="i in 9" :key="i" />
       </div>
     </div>
 
@@ -22,7 +22,8 @@
 
 
 <script>
-  import  request from './../helper/functions/requestsHandler.js'
+  import  request from './../helper/functions/requestsHandler'
+  import bus from './../helper/functions/bus'
 
   export default {
     name: 'SoundItem',
@@ -33,12 +34,6 @@
       },
       index: {
         type: Number
-      },
-      selectedAudio: {
-        type: Number
-      },
-      soundPlaying: { // for showing animation
-        type: Boolean
       }
     },
 
@@ -46,7 +41,8 @@
       imgSrc: '',
       title: '',
       artist: '',
-      thisSoundIsPlaying: false
+      playingSoundsIndex: -1,
+      isPlaying: true,
     }),
 
     computed: {
@@ -56,29 +52,27 @@
 
       _artist() {return this.artist == null ? "<unknown>" : this.artist},
 
+      animationVisability() { return this.isPlaying && this.index == this.playingSoundsIndex ? true : false}
     },
 
-    created(){
+    mounted(){
       request.getAudiosImg(this.soundInfo.fileName)
         .then(obj => {this.imgSrc = obj.src, this.title = obj.title, this.artist = obj.artist})
     },
 
-    watch:{
-      selectedAudio: function() {
-        if(this.selectedAudio == this.index){
-          this.$emit('click', {imgSrc: this.imgSrc, audioSrc: this.audioSrc})
-        }
-        else {this.thisSoundIsPlaying= false}
-      }
+    created(){
+      bus.$on("giveSoundsInfo", index => {
+        this.playingSoundsIndex = index
+        if(index == this.index){bus.$emit("getSoundsInfo", {imgSrc: this.imgSrc, audioSrc: this.audioSrc})}
+      })
+
+      bus.$on("setPlayingMode", playingMode => this.isPlaying = playingMode)
     },
 
     methods: {
-      soundSelected(){
-        this.thisSoundIsPlaying = true
-        this.$emit('click', {imgSrc: this.imgSrc, audioSrc: this.audioSrc})
-      },
+      hasPoster() { return (this.imgSrc == "") ? false : true},
 
-      hasPoster(){ return (this.imgSrc == "") ? false : true}
+      setThisSound() { bus.$emit('selectNewSound', this.index)}
     },
 
   }

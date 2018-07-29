@@ -2,30 +2,33 @@
   <div class="root">
 
     <!-- poster and player -->
-    <template v-if="(selectedAudio  !== -1)">
+    <template v-if="(selectedSound  !== -1)">
       <img
         v-if="(hasPoster()) && !hiddenPosterClicked"
         :src="imgSrc"
-        class="poster">
+        class="poster"
+      >
       <img
         v-if="(!hasPoster()) && !hiddenPosterClicked"
         src="./../assets/images/noposter.jpg"
-        class="poster">
+        class="poster"
+      >
 
       <!-- choose poster shown or not -->
       <img
         src="./../assets/images/back.png"
         :class="{'down':(hiddenPosterClicked) , 'up': (!hiddenPosterClicked)}"
-        @click="toggleShowPoster()"/>
+        @click="toggleShowPoster()"
+      >
 
       <!-- audio player -->
       <audio-player
         :sources="audioSrc"
         :html5="true"
+        :autoplay='true'
+        :selectedSound="selectedSound"
         class="audioPlayer"
-        @audioIsPlaying="setPlayingMode"
-        @setAnotherAudio="setSelectedAudio"
-        :autoplay='false'/>
+      />
 
     </template>
 
@@ -36,11 +39,8 @@
           :soundInfo="sound"
           class="soundItem"
           :index="index"
-          @click="selectAudio(index, $event)"
-          :selectedAudio="selectedAudio"
-          :soundPlaying="oneAudioIsPlaying"
-          />
-          <hr/>
+        />
+        <hr/>
       </div>
     </div>
   </div>
@@ -49,8 +49,9 @@
 
 <script>
 
-  import SoundItem from "./SoundItem.vue"
-  import AudioPlayer from "./../helper/components/audioPlayer.vue"
+  import SoundItem from "./SoundItem"
+  import AudioPlayer from "./../helper/components/audioPlayer"
+  import bus from "./../helper/functions/bus"
 
   export default {
     name: 'SoundItems',
@@ -64,9 +65,8 @@
     data: () => ({
       imgSrc: '',
       audioSrc: [],
-      selectedAudio: -1,
       hiddenPosterClicked: false,
-      oneAudioIsPlaying: false,
+      selectedSound: -1
     }),
 
     components: {
@@ -74,24 +74,28 @@
       AudioPlayer,
     },
 
-    methods: {
-      selectAudio(index, event) {
-        this.selectedAudio = index;
-        this.imgSrc = event.imgSrc
-        this.audioSrc = [event.audioSrc]
-        this.setPlayingMode()
-      },
+    created() {
+      bus.$on("selectNewSound" , index => {
+        this.ifIsValidIndex(index, () => {
+          this.selectedSound = index
+          bus.$emit("giveSoundsInfo", index)
+        })
+      })
 
+      bus.$on("getSoundsInfo", info => {
+        this.imgSrc = info.imgSrc
+        this.audioSrc = [info.audioSrc]
+      })
+
+    },
+
+    methods: {
       hasPoster(){ return (this.imgSrc == "") ? false : true},
 
       toggleShowPoster() { this.hiddenPosterClicked = !this.hiddenPosterClicked},
 
-      setPlayingMode(event) { this.oneAudioIsPlaying = !event},
-
-      setSelectedAudio(event){if(this.checkAudiosIndex(this.selectedAudio + event)) this.selectedAudio += event},
-
-      checkAudiosIndex(num){ return (num < this.sounds.length)&&(num > -1) ? true : false }
-    }
+      ifIsValidIndex(num, func) { if(num < this.sounds.length && num > -1) func()}
+    },
 
   }
 

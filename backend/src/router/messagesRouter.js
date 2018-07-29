@@ -52,6 +52,7 @@ router.get('/downloadSoundsImg/:fileName', (req, res) => {
     },
     onError: function(error) {
       console.log(':(', error.type, error.info);
+      res.send({src: "", title: null, artist: null})
     }
   });
 })

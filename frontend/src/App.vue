@@ -20,10 +20,10 @@
 
 
 <script>
-  import Header from "./components/Header.vue"
-  import SoundItems from "./components/SoundItems.vue"
+  import Header from "./components/Header"
+  import SoundItems from "./components/SoundItems"
   import requests from "./helper/functions/requestsHandler"
-  import AddPage from "./components/AddPage.vue"
+  import AddPage from "./components/AddPage"
 
   export default {
     name: 'App',
@@ -63,6 +63,6 @@
     height: 100%;
     background-color: rgb(74, 74, 74);
     user-select: none;
-    
+
   }
 </style>
