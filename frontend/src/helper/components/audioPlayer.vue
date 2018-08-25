@@ -59,7 +59,13 @@
 
     watch: {
       playing() { bus.$emit("setPlayingMode", this.playing) },
-      seek: function() {if (this.duration - this.seek < 1) {this.selectNewSound(1)}},
+
+      seek: function() {
+        if (this.duration - this.seek < 1 ) {
+          this.selectNewSound(1)
+        }
+      }
+
     }
   }
 

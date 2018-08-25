@@ -17,6 +17,7 @@
             </svg> <span>Choose a file&hellip;</span></label>
 				</div>
 			</div>
+
       <!-- upload button -->
       <div class="submitPart">
         <button class="fill" type="button" name="button" @click.prevent="submitFile()">
@@ -26,7 +27,8 @@
     <!-- alert box -->
     <div
       class="alert"
-      :style="{visibility: !alert ? 'hidden' : 'visible'}">
+
+    :style="{visibility: !alert ? 'hidden' : 'visible'}">
       {{alert}}
     </div>
   </div>
@@ -82,6 +84,8 @@
       },
     }
   }
+
+
 </script>
 
 

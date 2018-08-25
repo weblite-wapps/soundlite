@@ -20,7 +20,13 @@
       },
 
     },
-
+    // watch: {
+    //   percent: function(value) {
+    //     if (value > 0.9 ) {
+    //       console.log(value)
+    //     }
+    //   }
+    // }
   }
 </script>
 
