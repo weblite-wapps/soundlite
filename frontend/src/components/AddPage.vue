@@ -76,6 +76,7 @@
             request.uploadAudio(formData)
               .then(() => { this.alert = 'uploaded !!!' })
             this.file= ''
+
           }
           else this.alert = 'invalid type of data'
         }

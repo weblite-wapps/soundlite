@@ -63,7 +63,7 @@ export default {
 
   created() {
     W && webliteHandler(this)
-    !W &&this.updateData()
+    !W && this.updateData()
   },
 }
 </script>
