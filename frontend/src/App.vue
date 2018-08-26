@@ -20,7 +20,7 @@
 </template>
 
 <script>
-// componenets
+// components
 import Header from "./components/Header"
 import MainPage from "./components/MainPage"
 import AddPage from "./components/AddPage"
@@ -63,7 +63,7 @@ export default {
 
   created() {
     W && webliteHandler(this)
-    !W && this.updateData()
+    !W &&this.updateData()
   },
 }
 </script>
