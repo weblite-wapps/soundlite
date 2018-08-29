@@ -10,7 +10,7 @@ export default {
       .set("Access-Control-Allow-Origin", "*")
       .query({ wisId })
       .then(res => res.body),
-
+  // getAudioTitleAndArtist
   getAudiosArtistAndTitle: fileName =>
     request
       .get(config.server + "/downloadSoundsTitles/" + fileName)
