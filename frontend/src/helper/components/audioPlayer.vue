@@ -6,7 +6,7 @@
       :percent='progress'
       @setProgressbar="setProgress"
     />
-
+    <!-- goToNext="goToNext" -->
     <!-- buttons -->
     <div class="buttons">
       <!-- played time -->
@@ -47,7 +47,8 @@
     methods: {
       makeTowDigit(num) {return num > 9 ? num : `0${num}`},
 
-      selectNewSound(num) { bus.$emit('selectNewSound', this.selectedSound + num) }
+      selectNewSound(num) { bus.$emit('selectNewSound', this.selectedSound + num) },
+
     },
 
     computed: {
@@ -58,9 +59,9 @@
 
     watch: {
       playing() { bus.$emit("setPlayingMode", this.playing) },
+      seek: function() {if (this.duration - this.seek < 1) {this.selectNewSound(1)}},
     }
   }
-
 
 </script>
 

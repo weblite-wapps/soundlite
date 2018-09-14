@@ -1,10 +1,11 @@
-var mongoose = require('mongoose')
-var Schema = mongoose.Schema
+const mongoose = require("mongoose")
 
-var AudioSchema = new Schema({
+const { Schema } = mongoose
+
+const AudioSchema = new Schema({
   wisId: String,
   addedBy: String,
   fileName: String,
 })
 
-exports.Audio = mongoose.model('audio', AudioSchema)
+exports.Audio = mongoose.model("audio", AudioSchema)

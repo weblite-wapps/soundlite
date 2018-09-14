@@ -34,7 +34,6 @@
       togglePage(event) {
         this.$emit('toggle-page', event)
       },
-
       visibility(page) { return { visibility: this.currentPage == page ? 'hidden' : 'visible' } },
     },
   }

@@ -1,10 +1,11 @@
 {
   "name": "soundlite",
-  "id": "5b5d8d880c9e390e6c58395b",
+  "id": "5b8a6df7488db41e9a8bf3ed",
   "instancable": true,
   "inline": false,
   "shareDB": false,
   "userInfo": true,
+  "searchable": true,
   "servIndexes": {
     "inline": "index",
     "main": "index",

@@ -1,19 +1,16 @@
-var mongoose = require('mongoose')
-var models =require('./databaseModel')
-
+const mongoose = require("mongoose")
+const models = require("./databaseModel")
 
 exports.connect = dbName => {
-  mongoose.connect('mongodb://localhost/' + dbName)
+  mongoose.connect(`mongodb://localhost/${dbName}`)
 
-  var db = mongoose.connection
-  db.on('error', console.error.bind(console, 'connection error:'));
-  db.once('open', function() {
-    console.log('Connected to (' + dbName + ') database!')
-  })
+  const db = mongoose.connection
+  db.on("error", console.error.bind(console, "connection error:"))
+  db.once("open", () => console.log(`Connected to ( ${dbName} ) database!`))
 }
 
-exports.addAudio = (audioInfo, fileName) => new models
-  .Audio({
+exports.addAudio = (audioInfo, fileName) =>
+  new models.Audio({
     wisId: audioInfo.wisId,
     addedBy: audioInfo.addedBy,
     fileName,

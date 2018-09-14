@@ -1,6 +1,5 @@
 <template>
   <div class="root">
-
     <!-- poster and player -->
     <template v-if="selectedSound !== -1">
       <img
@@ -8,14 +7,12 @@
         :src="hasPoster() ? imgSrc : require('./../assets/images/noposter.jpg')"
         class="poster"
       />
-
       <!-- choose poster shown or not -->
       <img
         src="./../assets/images/back.png"
         :class="hiddenPosterClicked ? 'down' : 'up'"
         @click="toggleShowPoster"
       />
-
       <!-- audio player -->
       <audio-player
         :sources="audioSrc"
@@ -39,7 +36,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
   import SoundItem from "./SoundItem"
@@ -69,10 +65,10 @@
 
     created() {
       bus.$on("selectNewSound" , index => {
-        this.ifIsValidIndex(index, () => {
+        if (this.ifIsValidIndex(index)) {
           this.selectedSound = index
           bus.$emit("giveSoundsInfo", index)
-        })
+        }
       })
 
       bus.$on("getSoundsInfo", info => {
@@ -83,10 +79,8 @@
 
     methods: {
       hasPoster() { return this.imgSrc },
-
       toggleShowPoster() { this.hiddenPosterClicked = !this.hiddenPosterClicked },
-
-      ifIsValidIndex(num, func) { if (num < this.sounds.length && num > -1) func() },
+      ifIsValidIndex(num) { return (num < this.sounds.length && num > -1) },
     },
   }
 </script>

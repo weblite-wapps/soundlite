@@ -18,7 +18,8 @@
         // width of wapp = 350px , width of progressbar= 350px * 80% => 280
         this.$emit('setProgressbar', (event.clientX-this.$refs.el.offsetLeft) / 280)
       },
-    }
+
+    },
 
   }
 </script>

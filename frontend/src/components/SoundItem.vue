@@ -44,7 +44,7 @@
     },
 
     data: () => ({
-      imgSrc: '',
+      // imgSrc: '',
       title: '',
       artist: '',
       playingSoundsIndex: -1,
@@ -52,7 +52,15 @@
     }),
 
     computed: {
-      audioSrc() { return `${config.server}/downloadSound/${this.soundInfo.fileName}`},
+      audioSrc() {
+        return `${config.server}/downloadSound/${this.soundInfo.fileName}`
+       },
+      imgSrc() {
+        const startIndex = this.soundInfo.fileName.lastIndexOf('.')
+        const filename = this.soundInfo.fileName.substring(0, startIndex)
+        return `${config.server}/downloadSoundsImg/${filename}` + '.png'
+      },
+
 
       _title() { return this.title == null ? "no title" : this.title },
 
@@ -64,9 +72,9 @@
     },
 
     mounted(){
-      request.getAudiosImg(this.soundInfo.fileName)
-        .then(({ src, title, artist }) => {
-          this.imgSrc = src
+      request.getAudiosArtistAndTitle(this.soundInfo.fileName)
+        .then(({  title, artist }) => {
+          // this.imgSrc = src
           this.title = title
           this.artist = artist
         })

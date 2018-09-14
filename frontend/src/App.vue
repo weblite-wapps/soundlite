@@ -12,64 +12,68 @@
 
     <AddPage
       v-if="currentPage === 'Add'"
+      @sendNotif="sendNotif"
       :wisId="wisId"
       :user="username"
     />
   </div>
 </template>
 
-
 <script>
-  // componenets
-  import Header from "./components/Header"
-  import MainPage from "./components/MainPage"
-  import AddPage from "./components/AddPage"
-  // helper
-  import webliteHandler from './helper/functions/weblite.api'
-  import requests from "./helper/functions/requestsHandler"
-  // W
-  const { W } = window
+// componenets
+import Header from "./components/Header"
+import MainPage from "./components/MainPage"
+import AddPage from "./components/AddPage"
+// helper
+import webliteHandler from "./helper/functions/weblite.api"
+import requests from "./helper/functions/requestsHandler"
+// W
+const { W } = window
 
-  export default {
-    name: 'App',
+export default {
+  name: "App",
 
-    components: {
-      Header,
-      MainPage,
-      AddPage,
+  components: {
+    Header,
+    MainPage,
+    AddPage,
+  },
+
+  data() {
+    return {
+      username: "",
+      wisId: "",
+      sounds: [],
+      currentPage: "Main",
+    }
+  },
+
+  methods: {
+    togglePage(event) {
+      if (event == "Main") this.updateData()
+      this.currentPage = event
     },
-
-    data(){
-      return {
-        username: 'hosein',
-        wisId: '',
-        sounds: [],
-        currentPage: 'Main',
-      }
+    updateData() {
+      requests.getData(this.wisId).then(res => (this.sounds = res))
     },
-
-    methods: {
-      togglePage(event){
-        if (event == "Main") this.updateData()
-        this.currentPage = event
-      },
-
-      updateData() { requests.getData(this.wisId).then(res => this.sounds = res) }
+    sendNotif(musicName) {
+      W.sendNotificationToAll("Soundlite", `Music ${musicName} is added =)`)
     },
+  },
 
-    created() {
-      W && webliteHandler(this)
-      !W && this.updateData()
-    },
-  }
+  created() {
+    W && webliteHandler(this)
+    !W && this.updateData()
+  },
+}
 </script>
 
 
 <style scoped>
-  .root {
-    width: 350px;
-    height: 100%;
-    background-color: rgb(74, 74, 74);
-    user-select: none;
-  }
+.root {
+  width: 350px;
+  height: 100%;
+  background-color: rgb(74, 74, 74);
+  user-select: none;
+}
 </style>
