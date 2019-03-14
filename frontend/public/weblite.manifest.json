@@ -1,7 +1,7 @@
 {
   "name": "soundlite",
   "id": "5b8a6df7488db41e9a8bf3ed",
-  "instancable": true,
+  "instantiable": true,
   "inline": false,
   "shareDB": false,
   "userInfo": true,
